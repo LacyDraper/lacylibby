@@ -7,7 +7,7 @@ class LoginForm extends Component {
     // if register is true, it means it will register new user, false means user is already registered and will sign in 
   
     state = {
-        register: false,
+        register: true,
         user: {
             email:'',
             password:''
@@ -18,8 +18,8 @@ class LoginForm extends Component {
     // event handler function
     handleForm = (e) => {
         e.preventDefault();
-        const {email} = this.state.user
-        const {password} =  this.state.user
+        const email = this.state.user.email
+        const password =  this.state.user.password
         
         if(this.state.register){
             firebase

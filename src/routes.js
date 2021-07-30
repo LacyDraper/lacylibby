@@ -5,7 +5,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Home from './components/index';
 import Header from './components/header';
 import Footer from './components/footer';
-import Libraries from './components/libraries';
+import Libraries from './components/libraries/libraries';
 import Login from './components/user/login';
 
 const Routes = () => (
