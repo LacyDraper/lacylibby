@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import firebase from '../../utils/firebase'
+import firebase,{ usersCollection} from '../../utils/firebase'
 
 
 class LoginForm extends Component {
@@ -25,8 +25,11 @@ class LoginForm extends Component {
             firebase
             .auth()
             .createUserWithEmailAndPassword(email,password)
-            .then( response => {
-                console.log(response)
+            .then( user => {
+                this.handleRegisterUser(user);
+                user.user.sendEmailVerification().then(()=> {
+                    console.log('email verification sent')
+                })
             })
             .catch(error => {
                 console.log(error)
@@ -58,6 +61,20 @@ class LoginForm extends Component {
         }))
 
     }
+
+
+    //goes to Firestore and gets data about the user
+    handleRegisterUser = (data) => {
+        usersCollection.doc(data.user.uid).set({
+            email: data.user.email
+        }).then(data => {
+            console.log('handleRegisterUser called', data)
+        }).catch (error => {
+            console.log(error)
+        })
+
+    }
+
 
     // logs a customer out if they are logged in 
     handleLogout = (e) => {

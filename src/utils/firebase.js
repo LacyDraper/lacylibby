@@ -21,5 +21,5 @@ firebase.auth();
  
 export const db = firebase.firestore();
 export const librariesCollection = db.collection('libraries');
-
+export const usersCollection = db.collection('users')
 export default firebase;
