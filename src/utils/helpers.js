@@ -1,13 +1,13 @@
-// helper function that returns the data as a list of objects with the location
+// helper function that returns the library data as a list of objects
 
 export const firebaseLooper = (snapshot) => {
-    let data = [];
+    let libraries_data = [];
     snapshot.forEach(doc => {
-        data.push({
+        libraries_data.push({
             ...doc.data(),
-            location : doc.location
+            id : doc.id
         })
     })
 
-    return data;
+    return libraries_data;
 }

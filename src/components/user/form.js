@@ -5,7 +5,6 @@ import firebase,{ usersCollection} from '../../utils/firebase'
 class LoginForm extends Component {
     
     // if register is true, it means it will register new user, false means user is already registered and will sign in 
-  
     state = {
         register: true,
         user: {
@@ -13,7 +12,6 @@ class LoginForm extends Component {
             password:''
         }
     }
-    
     
     // event handler function
     handleForm = (e) => {
@@ -62,18 +60,6 @@ class LoginForm extends Component {
 
     }
 
-
-    //goes to Firestore and gets data about the user
-    handleRegisterUser = (data) => {
-        usersCollection.doc(data.user.uid).set({
-            email: data.user.email
-        }).then(data => {
-            console.log('handleRegisterUser called', data)
-        }).catch (error => {
-            console.log(error)
-        })
-
-    }
 
 
     // logs a customer out if they are logged in 

@@ -13,7 +13,7 @@ import {
 import mapStyles from "./mapStyles";
 import { formatRelative } from "date-fns";
 
-//prop. The map takes up the space of the continer it's in. If you don't add width & height, it won't
+//prop. The map takes up the space of the container it's in. If you don't add width & height, it won't
 //appear. If you set it to 100, it fills the whole screen
 const mapContainerStyle = {
     width: '90vw',
