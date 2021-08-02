@@ -20,21 +20,19 @@ import { data } from "browserslist";
 const libraryData = [
     {   id: 1,
         lat:47.597998,
-        long:-122.318739
+        lng:-122.318739
     },
     {   id: 2,
         lat:47.600757,
-        long:-122.332526
+        lng:-122.332526
     },
     {   id: 3,
         lat:47.598528,
-        long:-122.326986
+        lng:-122.326986
     }
 
 
 ]
-
-
 
 const mapContainerStyle = {
     width: '90vw',
@@ -101,13 +99,12 @@ const App = () => {
         id= "marker-example"
 
         >
-        {/* {libraryData.map((marker => ( */}
+        {libraryData.map((marker => (
         <Marker 
-            // key={marker.id}     
+            key={marker.id}     
             onLoad={onLoad}
-            
-            // position = {{lat : marker.lat,lng: marker.lng}}
-            position = { position }
+            position = {{lat: marker.lat, lng: marker.lng}}
+            // position = { position }
             icon= {{
             url: '/3redbooks.svg',
             scaledSize: new window.google.maps.Size(30,30),
@@ -118,7 +115,7 @@ const App = () => {
             // setSelected(marker);
             // }}
             />
-        {/* )))} */}
+        )))}
         
         {/* {selected ? (
         <InfoWindow position= {{lat: selected.lat, lng: selected.lng}} onCloseClick = {() => {
