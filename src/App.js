@@ -7,7 +7,6 @@ import {
     MarkerClusterer,
 } from "@react-google-maps/api";
 
-// import { formatRelative } from "date-fns";
 
 // import "@reach/combobox/styles.css";
 // import { APPCENTER } from "ci-info";
@@ -20,15 +19,18 @@ import { data } from "browserslist";
 const libraryData = [
     {   id: 1,
         lat:47.597998,
-        lng:-122.318739
+        lng:-122.318739,
+        time: new Date()
     },
     {   id: 2,
         lat:47.600757,
-        lng:-122.332526
+        lng:-122.332526,
+        time: new Date()
     },
     {   id: 3,
         lat:47.598528,
-        lng:-122.326986
+        lng:-122.326986,
+        time: new Date()
     }
 
 
@@ -70,8 +72,8 @@ const App = () => {
     
 
     
-    // const [markers, setMarkers] = React.useState([]);
-    // const [selected, setSelected] = React.useState(null);
+    const [markers, setMarkers] = React.useState([]);
+    const [selected, setSelected] = React.useState(null);
 
     // const onMapClick = React.useCallback((event) => {
     //   setMarkers(current => [ //when user clicks, call the setMarkers function. Is that built in??
@@ -111,21 +113,22 @@ const App = () => {
             origin: new window.google.maps.Point(0,0),
             anchor: new window.google.maps.Point(15,15) 
             }}
-            // onClick={() => {
-            // setSelected(marker);
-            // }}
+            onClick={() => {
+            setSelected(marker);
+            }}
             />
         )))}
         
-        {/* {selected ? (
+        {selected ? (
         <InfoWindow position= {{lat: selected.lat, lng: selected.lng}} onCloseClick = {() => {
-        setSelected(null); //have to reset to null once x is clicked on window so that they can pop up agian when clicked
-        }}>
+        setSelected(null)}} //have to reset to null once x is clicked on window so that they can pop up agian when clicked
+        >
         <div>
             <h2> image goes here </h2>
             <p>Library inventory last updated {formatRelative(selected.time, new Date())}</p>
         </div>
-        </InfoWindow>) : null}  */}
+        </InfoWindow>
+        ) : null} 
         </GoogleMap>
         </div>;
     };
