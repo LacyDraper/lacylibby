@@ -6,15 +6,36 @@ import {
     InfoWindow,
     MarkerClusterer,
 } from "@react-google-maps/api";
+
 // import { formatRelative } from "date-fns";
 
 // import "@reach/combobox/styles.css";
 // import { APPCENTER } from "ci-info";
 import mapStyles from "./mapStyles";
 import { formatRelative } from "date-fns";
+import Libraries from "./components/libraries/libraries";
+import { data } from "browserslist";
 
-//prop. The map takes up the space of the container it's in. If you don't add width & height, it won't
-//appear. If you set it to 100, it fills the whole screen
+
+const libraryData = [
+    {   id: 1,
+        lat:47.597998,
+        long:-122.318739
+    },
+    {   id: 2,
+        lat:47.600757,
+        long:-122.332526
+    },
+    {   id: 3,
+        lat:47.598528,
+        long:-122.326986
+    }
+
+
+]
+
+
+
 const mapContainerStyle = {
     width: '90vw',
     height: '90vh',
@@ -30,24 +51,24 @@ const options = {
     disableDefaultUI: true, //gets rid of all teh controls on the map, then add back in 
     zoomControl: true,
 }
-const position = {
-    lat: 47.606209,
-    lng: -122.332069
-}
+
 const onLoad = marker => {
     console.log('marker: ', marker)
 }
 
-export default function App() {
+const App = () => {
+    
+    
     const {isLoaded, loadError} = useLoadScript({
         googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
         //leaving out places library becuase not using the library 
 
     });
 
+    // we need to create a variable that holds the state of libraries component here so we can render the markers to the page
     
-    // const [ id, setId ] = React.useState(0);
-    // const [ drawMarker, setDrawMarker ] = React.useState(false);
+   
+    
     const [markers, setMarkers] = React.useState([]);
     const [selected, setSelected] = React.useState(null);
 
@@ -68,34 +89,33 @@ export default function App() {
     //props: container, see notes above where the variable is
     //position the map
     return <div>
+
         <GoogleMap 
         mapContainerStyle={mapContainerStyle} 
         zoom = {15} 
         center = {center}
         options = { options }
-       // this adds an icon everytime it's clicked. Need to change it to when the icon is clicked
-      // onClick = { onMapClick }
-        >
-        {/* marker component comes with the google maps package */}
-        {/* used time as key, but could use library charter number  */}
-        {markers.map((marker => 
+       
+       >
+        {libraryData.map((marker => (
         <Marker 
-            onLoad={onLoad}
-          // key={marker.time.toISOString()} 
-          // position = {{lat: 47.599192, lng: 47.599192}}
-            position= { position } 
+            key={marker.id}     
+            //onLoad={onLoad}
+            
+            position = {{lat : marker.lat,lng: marker.lng}}
+            
             icon= {{
             url: '/3redbooks.svg',
             scaledSize: new window.google.maps.Size(30,30),
             origin: new window.google.maps.Point(0,0),
-            anchor: new window.google.maps.Point(15,15) //half of size makes in middle
+            anchor: new window.google.maps.Point(15,15) 
             }}
-          // onClick={() => {
-          //   setSelected(marker);
-          // }}
+          onClick={() => {
+          setSelected(marker);
+          }}
             />
-        ))}
-        {/* //infowindow is component that pops up white window. Can take 1 child*/}
+        )))}
+        
         {selected ? (
         <InfoWindow position= {{lat: selected.lat, lng: selected.lng}} onCloseClick = {() => {
         setSelected(null); //have to reset to null once x is clicked on window so that they can pop up agian when clicked
@@ -106,5 +126,9 @@ export default function App() {
         </div>
         </InfoWindow>) : null} 
         </GoogleMap>
-    </div>;
-    }
+        </div>;
+    };
+
+
+export default App;
+  
