@@ -2,6 +2,8 @@ import firebase from 'firebase/app';
 // We need to import the firebase services we want to use
 import 'firebase/firestore';
 import 'firebase/auth';
+//added access to firestore here
+import 'firebase/storage';
 
 // SDK setup from lacy_libby_capstone firebase project
 const firebaseConfig = {
@@ -18,7 +20,10 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 firebase.auth(); 
- 
+
+//we can use storageRef to access storage in other parts of our app
+export const storage = firebase.storage();
+export const storageRef = storage.ref();
 
 export const db = firebase.firestore();
 export const librariesCollection = db.collection('libraries');
