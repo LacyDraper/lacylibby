@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from 'react';
 import {
     GoogleMap,
     useLoadScript,
@@ -12,29 +12,32 @@ import {
 // import { APPCENTER } from "ci-info";
 import mapStyles from "./mapStyles";
 import { formatRelative } from "date-fns";
-import Libraries from "./components/libraries/libraries";
 import { data } from "browserslist";
+import { librariesCollection, db } from './utils/firebase.js';
+import { firebaseLooper } from "./utils/helpers";
 
 
-const libraryData = [
-    {   id: 1,
-        lat:47.597998,
-        lng:-122.318739,
-        time: new Date()
-    },
-    {   id: 2,
-        lat:47.600757,
-        lng:-122.332526,
-        time: new Date()
-    },
-    {   id: 3,
-        lat:47.598528,
-        lng:-122.326986,
-        time: new Date()
-    }
+
+// const libraryData = [
+//     {   id: 1,
+//         lat:47.597998,
+//         lng:-122.318739,
+//         time: new Date()
+//     },
+//     {   id: 2,
+//         lat:47.600757,
+//         lng:-122.332526,
+//         time: new Date()
+//     },
+//     {   id: 3,
+//         lat:47.598528,
+//         lng:-122.326986,
+//         time: new Date()
+//     }
+
+// ]
 
 
-]
 
 const mapContainerStyle = {
     width: '90vw',
@@ -55,13 +58,25 @@ const options = {
 const onLoad = marker => {
     console.log('marker: ', marker)
 }
-const position = {
-    lat: 47.6050,
-    lng: -122.3344
-}
+
+
+
 
 const App = () => {
     
+    // state to hold all library object locations that we can pass to maps API. calling helper function to set initial state
+    const[libraryMarkers, setLibraryMarkers] = useState([]);
+
+    useEffect(() => {
+        
+        db.collection('libraries').get().then(snapshot => {
+            const libraries = firebaseLooper(snapshot);
+            console.log(libraries);
+            setLibraryMarkers(libraries)
+        }).catch (e => {
+            console.log(e)
+        })
+    },[]);
     
     const {isLoaded, loadError} = useLoadScript({
         googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
@@ -72,19 +87,10 @@ const App = () => {
     
 
     
-    const [markers, setMarkers] = React.useState([]);
+   
     const [selected, setSelected] = React.useState(null);
 
-    // const onMapClick = React.useCallback((event) => {
-    //   setMarkers(current => [ //when user clicks, call the setMarkers function. Is that built in??
-    //     ...current, 
-    //     {  
-    //     lat: event.latLng.lat(),
-    //     lng: event.latLng.lng(),
-    //     time: new Date(),
-    //   },
-    // ]); 
-    // }, []);
+ 
 
 
     if (loadError) return "Error loading maps";
@@ -92,7 +98,7 @@ const App = () => {
     //props: container, see notes above where the variable is
     //position the map
     return <div>
-
+        
         <GoogleMap 
         mapContainerStyle={mapContainerStyle} 
         zoom = {15} 
@@ -101,11 +107,12 @@ const App = () => {
         id= "marker-example"
 
         >
-        {libraryData.map((marker => (
+        {libraryMarkers.map((marker => (
         <Marker 
             key={marker.id}     
             onLoad={onLoad}
             position = {{lat: marker.lat, lng: marker.lng}}
+        
             // position = { position }
             icon= {{
             url: '/3redbooks.svg',
@@ -120,18 +127,24 @@ const App = () => {
         )))}
         
         {selected ? (
-        <InfoWindow position= {{lat: selected.lat, lng: selected.lng}} onCloseClick = {() => {
+            
+        <InfoWindow 
+            position= {{lat: selected.lat, lng: selected.lng}} 
+            onCloseClick = {() => {
+
         setSelected(null)}} //have to reset to null once x is clicked on window so that they can pop up agian when clicked
         >
         <div>
             <h2> image goes here </h2>
-            <p>Library inventory last updated {formatRelative(selected.time, new Date())}</p>
+            <p>
+                Name of Library : {selected.name}
+            </p>   
         </div>
         </InfoWindow>
         ) : null} 
         </GoogleMap>
         </div>;
-    };
+    }    
 
 
 export default App;
