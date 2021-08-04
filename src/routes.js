@@ -5,8 +5,8 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Home from './components/index';
 import Header from './components/header';
 import Footer from './components/footer';
-
 import Login from './components/user/login';
+// import Upload from './components/upload';
 
 const Routes = () => (
     
@@ -15,8 +15,8 @@ const Routes = () => (
         <main role="main" className="container">
             <Switch>
                 <Route exact path="/" component={Home}/>
-                
                 <Route exact path="/login" component={Login}/>
+                {/* <Route exact path="/upload" component={Upload}/> */}
             </Switch>
         </main>
     </BrowserRouter>

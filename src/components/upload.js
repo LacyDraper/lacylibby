@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import firebase, {storageRef} from 'firebase';
+import { storage, storageRef } from '../utils/firebase';
 
 
 
@@ -11,6 +11,16 @@ const Upload = (props) => {
 
     const onSubmitHandler = (event) => {
         event.preventDefault();
+        const { image } = inventoryImages
+        //user has to be logged in to do this if we have register state set to true
+        storageRef
+        .child(`/images/library/${image.name}`) //or whatever route
+        .put(image)
+        .then( ()=>{
+            console.log('file uploaded')
+        }).catch(e=> {
+            console.log(e)
+        });
     }
 
     const handleUploadImage = (event) => {
@@ -20,6 +30,8 @@ const Upload = (props) => {
             console.log(inventoryImages,'testing printing inventory image info')
 
         }
+
+
     }
 
 

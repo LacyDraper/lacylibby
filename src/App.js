@@ -16,6 +16,7 @@ import { data } from "browserslist";
 import { librariesCollection, db } from './utils/firebase.js';
 import { firebaseLooper } from "./utils/helpers";
 import Upload from "./components/upload";
+// import { storage, storageRef } from './utils/firebase';
 
 
 // const libraryData = [
