@@ -15,7 +15,7 @@ import { formatRelative } from "date-fns";
 import { data } from "browserslist";
 import { librariesCollection, db } from './utils/firebase.js';
 import { firebaseLooper } from "./utils/helpers";
-
+import Upload from "./components/upload";
 
 
 // const libraryData = [
@@ -64,8 +64,8 @@ const onLoad = marker => {
 
 const App = () => {
     
-    // state to hold all library object locations that we can pass to maps API. calling helper function to set initial state
-    const[libraryMarkers, setLibraryMarkers] = useState([]);
+    // state to hold all library objects
+    const [libraryMarkers, setLibraryMarkers]  = useState([]);
 
     useEffect(() => {
         
@@ -77,6 +77,11 @@ const App = () => {
             console.log(e)
         })
     },[]);
+    
+    // state to hold current inventory images
+    const [ inventoryImages, setInventoryImages] = useState([]);
+
+    
     
     const {isLoaded, loadError} = useLoadScript({
         googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
@@ -139,6 +144,7 @@ const App = () => {
             <p>
                 Name of Library : {selected.name}
             </p>   
+            <Upload/>
         </div>
         </InfoWindow>
         ) : null} 
