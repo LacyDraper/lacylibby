@@ -144,7 +144,13 @@ const App = () => {
             <p>
                 Name of Library : {selected.name}
             </p>   
-            <Upload/>
+            <Upload
+                id = {selected.id}
+                name = {selected.name}
+                photo= {selected.photo}
+                onUpdateLibrary = { updateLibrary }
+            
+            />
         </div>
         </InfoWindow>
         ) : null} 

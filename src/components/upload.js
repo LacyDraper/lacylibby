@@ -4,7 +4,7 @@ import { storage, storageRef } from '../utils/firebase';
 
 
 // need to move state to App and pass it down by props
-const Upload = (props) => {
+const Upload = ( { name, id, photo, onUpdateLibrary } ) => {
 
     const [ inventoryImages, setInventoryImages] = useState([]);
     
