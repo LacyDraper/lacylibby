@@ -1,8 +1,8 @@
 import firebase from 'firebase/app';
-// We need to import the firebase services we want to use
+
 import 'firebase/firestore';
 import 'firebase/auth';
-//added access to firestore here
+
 import 'firebase/storage';
 
 // SDK setup from lacy_libby_capstone firebase project

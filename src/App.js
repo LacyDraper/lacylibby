@@ -78,7 +78,7 @@ const App = () => {
     },[]);
     
     // function to update state
-    const updateLibrary = (libraryToUpdate) => {
+    const onUpdateLibrary = (libraryToUpdate) => {
         const libraries = libraryData.map((library) => {
             if (library.id === libraryToUpdate.id) {
                 return libraryToUpdate;
@@ -111,14 +111,14 @@ const App = () => {
         center = {center}
         options = { options }
         id= "marker-example"
-
+        
         >
         {libraryData.map((marker => (
         <Marker 
             key={marker.id}     
             onLoad={onLoad}
             position = {{lat: marker.lat, lng: marker.lng}}
-        
+            onUpdateLibrary={onUpdateLibrary}
             // position = { position }
             icon= {{
             url: '/3redbooks.svg',
@@ -135,6 +135,7 @@ const App = () => {
         {selected ? (
             
         <InfoWindow 
+            
             position= {{lat: selected.lat, lng: selected.lng}} 
             onCloseClick = {() => {
 
@@ -149,7 +150,9 @@ const App = () => {
                 id = {selected.id}
                 name = {selected.name}
                 photo= {selected.photo}
-                onUpdateLibrary = { updateLibrary }
+                onUpdateLibrary = { onUpdateLibrary }
+                lat={selected.lat}
+                lng={selected.lng}
             
             />
         </div>
