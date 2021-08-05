@@ -61,28 +61,31 @@ const onLoad = marker => {
 }
 
 
-
-
 const App = () => {
     
     // state to hold all library objects
-    const [libraryMarkers, setLibraryMarkers]  = useState([]);
+    const [libraryData, setLibraryData]  = useState([]);
 
     useEffect(() => {
         
         db.collection('libraries').get().then(snapshot => {
             const libraries = firebaseLooper(snapshot);
             console.log(libraries);
-            setLibraryMarkers(libraries)
+            setLibraryData(libraries)
         }).catch (e => {
             console.log(e)
         })
     },[]);
-    
-    // state to hold current inventory images
-    const [ inventoryImages, setInventoryImages] = useState([]);
-
-    
+// function to update state
+    const updateLibrary = (libraryToUpdate) => {
+        const libraries = libraryData.map((library) => {
+            if (library.id === libraryToUpdate.id) {
+                return libraryToUpdate;
+            }
+            return library;
+        });
+        setLibraryData(libraries);
+    }
     
     const {isLoaded, loadError} = useLoadScript({
         googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
@@ -93,11 +96,7 @@ const App = () => {
     
 
     
-   
     const [selected, setSelected] = React.useState(null);
-
- 
-
 
     if (loadError) return "Error loading maps";
     if (!isLoaded) return "Loading Maps";
@@ -113,7 +112,7 @@ const App = () => {
         id= "marker-example"
 
         >
-        {libraryMarkers.map((marker => (
+        {libraryData.map((marker => (
         <Marker 
             key={marker.id}     
             onLoad={onLoad}
