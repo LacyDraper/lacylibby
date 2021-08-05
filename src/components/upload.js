@@ -6,43 +6,41 @@ import { storage, storageRef } from '../utils/firebase';
 // need to move state to App and pass it down by props
 const Upload = ( { name, id, photo, onUpdateLibrary } ) => {
 
-    const [ inventoryImages, setInventoryImages] = useState([]);
     
-
-    const onSubmitHandler = (event) => {
-        event.preventDefault();
-        const { image } = inventoryImages
-        //user has to be logged in to do this if we have register state set to true
-        storageRef
-        .child(`/images/library/${image.name}`) //or whatever route
-        .put(image)
-        .then( ()=>{
-            console.log('file uploaded')
-        }).catch(e=> {
-            console.log(e)
-        });
+    const onFileChange =  (event) => {
+        const image = event.target.files[0]
+        const imageRef = storageRef.child(image.name)
+        imageRef.put(image).then(() => {
+            console.log('Uploaded image', image.name)
+        })
+      
     }
 
+       
     const handleUploadImage = (event) => {
+        event.preventDefault()
+        //if file inside the event, then move forward with upload (10:20 on video)
         if (event.target.files){
-            const image = event.target.file;
-            setInventoryImages({image})
-            console.log(inventoryImages,'testing printing inventory image info')
+            const image = event.target.files;
+            //this updates state(below)
+            onUpdateLibrary({
+                photo: image
+                //date: date should be added once it's in Firebase & passed down as prop
+            });
+            console.log( {image}, "event from image" );
 
         }
-
-
     }
-
+        
 
     return(
         <>
-            <form onSubmit={onSubmitHandler}>
+            <form onSubmit={handleUploadImage}>
                 <div className='form'>
                     <label> Choose File</label>
                     <input
                         type='file'
-                        onChange={handleUploadImage}
+                        onChange={onFileChange}
                     />
                 </div>
                 <button
