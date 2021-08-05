@@ -76,7 +76,8 @@ const App = () => {
             console.log(e)
         })
     },[]);
-// function to update state
+    
+    // function to update state
     const updateLibrary = (libraryToUpdate) => {
         const libraries = libraryData.map((library) => {
             if (library.id === libraryToUpdate.id) {
