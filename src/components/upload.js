@@ -1,34 +1,37 @@
 import React, { useState, useEffect } from 'react';
-import { storage, storageRef } from '../utils/firebase';
+import { storage, storageRef , librariesCollection} from '../utils/firebase';
 
 
 
 
+// give photo as a parameter inside of array of useEffect hook   when photo prop value changes update the datebase 
 
 
-const Upload = ( { name, id, photo, onUpdateLibrary ,lat, lng } ) => {
+const Upload = ( { name, id, photo_URL , onUpdateLibrary ,lat, lng } ) => {
 
     
     const onFileChange =  (event) => {
         event.preventDefault()
+        
         const image = event.target.files[0]
         console.log(image)
         const imageRef = storageRef.child(`/images/library/${image.name}`)
-        console.log(imageRef)
-        console.log(imageRef.fullPath)
-        imageRef.put(image).then((uploadData) => {
+        .put(image)
+        .then(() => {
             onUpdateLibrary({
                 name : name,
                 id : id,
-                photo: imageRef.fullPath, //<----- need to figure out how to assisgn URL here
                 lat : lat,
-                lng : lng
+                lng : lng,
+                photo_URL : imageRef.fullPath,
             })
-            // we need to now send a post or patch request to our firestore to have changes saved 
-            console.log(uploadData) //to see whats in object 
+            // create a reference to the collections document field  to be updated
+            //
+            // need to now send a post or patch request to our firestore to have changes saved 
+            
             console.log('Uploaded image', image.name)
         })
-      
+    
     }
 
     
