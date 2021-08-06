@@ -16,27 +16,7 @@ import { data } from "browserslist";
 import { librariesCollection, db } from './utils/firebase.js';
 import { firebaseLooper } from "./utils/helpers";
 import Upload from "./components/upload";
-// import { storage, storageRef } from './utils/firebase';
 
-
-// const libraryData = [
-//     {   id: 1,
-//         lat:47.597998,
-//         lng:-122.318739,
-//         time: new Date()
-//     },
-//     {   id: 2,
-//         lat:47.600757,
-//         lng:-122.332526,
-//         time: new Date()
-//     },
-//     {   id: 3,
-//         lat:47.598528,
-//         lng:-122.326986,
-//         time: new Date()
-//     }
-
-// ]
 
 
 
@@ -86,18 +66,16 @@ const App = () => {
             return library;
         });
         
-        //logic for updating document
-
-
-        setLibraryData(libraries);
+       setLibraryData(libraries);
     }
+    
     
     const {isLoaded, loadError} = useLoadScript({
         googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
         
     });
 
-    // we need to create a variable that holds the state of libraries component here so we can render the markers to the page
+    
     
 
     
