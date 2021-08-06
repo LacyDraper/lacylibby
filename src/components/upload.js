@@ -7,7 +7,7 @@ import { storage, storageRef , librariesCollection} from '../utils/firebase';
 // give photo as a parameter inside of array of useEffect hook   when photo prop value changes update the datebase 
 
 
-const Upload = ( { name, id, photo_URL , onUpdateLibrary ,lat, lng } ) => {
+const Upload = ( { name, id, onUpdateLibrary ,lat, lng } ) => {
 
     
     const onFileChange =  (event) => {
@@ -15,19 +15,28 @@ const Upload = ( { name, id, photo_URL , onUpdateLibrary ,lat, lng } ) => {
         
         const image = event.target.files[0]
         console.log(image)
-        const imageRef = storageRef.child(`/images/library/${image.name}`)
+        storageRef.child(`/images/library/${image.name}`)
         .put(image)
-        .then(() => {
+        .then(async(uploadSnapshot) => {
+            // uploadSnapshot.ref.getDownloadURL expression gets resolved into a promise. we have to use await to unwrap the promise 
+            const downloadURL = await uploadSnapshot.ref.getDownloadURL()
+            
+            console.log(uploadSnapshot)
+            console.log(downloadURL,'<--url')
+            // .set is updating the Firestore DB with new photo_URL field 
+            librariesCollection.doc(id).update({
+              
+                photo_URL : downloadURL,
+
+            })
             onUpdateLibrary({
                 name : name,
                 id : id,
                 lat : lat,
                 lng : lng,
-                photo_URL : imageRef.fullPath,
+                photo_URL : downloadURL,
             })
-            // create a reference to the collections document field  to be updated
-            //
-            // need to now send a post or patch request to our firestore to have changes saved 
+           
             
             console.log('Uploaded image', image.name)
         })
@@ -36,22 +45,6 @@ const Upload = ( { name, id, photo_URL , onUpdateLibrary ,lat, lng } ) => {
 
     
     
-   
-    // const handleUploadImage = (event) => {
-    //     event.preventDefault()
-  
-    //     if (event.target.files){
-    //         const image = event.target.files;
-    //         //this updates state(below)
-    //         onUpdateLibrary({
-    //             photo: image
-    //             //date: date should be added once it's in Firebase & passed down as prop
-    //         });
-    //         console.log( {image}, "event from image" );
-
-    //     }
-    // }
-        
 
     return(
         <>
