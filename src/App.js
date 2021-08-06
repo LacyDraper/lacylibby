@@ -68,7 +68,7 @@ const App = () => {
 
     useEffect(() => {
         
-        db.collection('libraries').get().then(snapshot => {
+        librariesCollection.get().then(snapshot => {
             const libraries = firebaseLooper(snapshot);
             console.log(libraries);
             setLibraryData(libraries)
@@ -85,6 +85,10 @@ const App = () => {
             }
             return library;
         });
+        
+        //logic for updating document
+
+
         setLibraryData(libraries);
     }
     
@@ -115,6 +119,7 @@ const App = () => {
         >
         {libraryData.map((marker => (
         <Marker 
+             
             key={marker.id}     
             onLoad={onLoad}
             position = {{lat: marker.lat, lng: marker.lng}}
@@ -135,7 +140,7 @@ const App = () => {
         {selected ? (
             
         <InfoWindow 
-            
+            photo_URL= {selected.photo_URL}
             position= {{lat: selected.lat, lng: selected.lng}} 
             onCloseClick = {() => {
 
@@ -149,7 +154,7 @@ const App = () => {
             <Upload
                 id = {selected.id}
                 name = {selected.name}
-                photo= {selected.photo}
+                photo_URL= {selected.photo_URL}
                 onUpdateLibrary = { onUpdateLibrary }
                 lat={selected.lat}
                 lng={selected.lng}
