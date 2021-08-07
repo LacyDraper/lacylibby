@@ -125,7 +125,8 @@ const App = () => {
         setSelected(null)}} //have to reset to null once x is clicked on window so that they can pop up agian when clicked
         >
         <div>
-            <h2> image goes here </h2>
+            <h2> {selected.name} Inventory</h2>
+            <img src={selected.photo_URL} alt='Photo Inventory'/>
             <p>
                 Name of Library : {selected.name}
             </p>   
