@@ -21,24 +21,24 @@ const Upload = ( { name, id, onUpdateLibrary ,lat, lng } ) => {
         .then(async(uploadSnapshot) => {
             // uploadSnapshot.ref.getDownloadURL expression gets resolved into a promise. we have to use await to unwrap the promise 
             const downloadURL = await uploadSnapshot.ref.getDownloadURL()
-            
-            
-            console.log(uploadSnapshot, 'timestamp')
-            console.log(downloadURL,'<--url')
+            //const date = uploadSnapshot.FullMetadata.timeCreated()
+            //console.log(date,'<-----date')
+           
             // .set is updating the Firestore DB with new photo_URL field 
             librariesCollection.doc(id).update({
               
                 photo_URL : downloadURL,
-                dateUploaded : image.lastModifiedDate
+                //dateUploaded : date
 
             })
-            onUpdateLibrary({
-                name : name,
-                id : id,
-                lat : lat,
-                lng : lng,
-                photo_URL : downloadURL,
-            })
+            
+            // onUpdateLibrary({
+            //     name : name,
+            //     id : id,
+            //     lat : lat,
+            //     lng : lng,
+            //     photo_URL : downloadURL,
+            // })
            
             
             console.log('Uploaded image', image.name)
