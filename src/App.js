@@ -126,6 +126,7 @@ const App = () => {
         >
         <div>
             <h2> {selected.name} Inventory</h2>
+            <h3>{selected.dateUploaded.toString()} Date uploaded </h3>
             <img src={selected.photo_URL} alt='Photo Inventory'/>
             <p>
                 Name of Library : {selected.name}
