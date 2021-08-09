@@ -33,7 +33,7 @@ const Upload = ( { name, id, onUpdateLibrary ,lat, lng } ) => {
     
     
     return(
-        <>
+        // <>
             <form>
                 <div className='form'>
                     <label> Choose File</label>
@@ -49,7 +49,7 @@ const Upload = ( { name, id, onUpdateLibrary ,lat, lng } ) => {
                     Upload File
                 </button>
             </form>
-        </>
+        // </>
 )
 }
 export default Upload;

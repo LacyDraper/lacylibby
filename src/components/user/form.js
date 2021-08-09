@@ -87,7 +87,8 @@ class LoginForm extends Component {
     
     render(){
             return(
-                <>
+                // <>
+                <div>
                 <form onSubmit={ (event)=> this.handleForm(event) }>
 
                     <div className="form-group">
@@ -117,12 +118,13 @@ class LoginForm extends Component {
                     </button>
                     
                 </form>
-                <hr/>
+                {/* // <hr/> */}
                 <button onClick={ ()=> this.handleLogout()}>
                     Logout
 
                 </button>
-            </>
+            </div>
+            //</>
 
         )
 
@@ -131,4 +133,3 @@ class LoginForm extends Component {
 }
         
 export default LoginForm;
-   
