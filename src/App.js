@@ -18,8 +18,6 @@ import { firebaseLooper } from "./utils/helpers";
 import Upload from "./components/upload";
 
 
-
-
 const mapContainerStyle = {
     width: '90vw',
     height: '90vh',
@@ -127,6 +125,7 @@ const App = () => {
         <div>
             <h2> {selected.name} Inventory</h2>
             <img src={selected.photo_URL} alt='Photo Inventory'/>
+            <p> Date uploaded: { selected.dateUploaded.toDate().toDateString()}, { selected.dateUploaded.toDate().toLocaleTimeString('en-US') }</p>
             <p>
                 Name of Library : {selected.name}
             </p>   
