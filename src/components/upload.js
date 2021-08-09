@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { storage, storageRef , librariesCollection} from '../utils/firebase';
 
+<<<<<<< HEAD
 
 
 
 
+=======
+>>>>>>> 571a94c9ea29c1c0e981df54fe8a25ef7a54eec6
 const Upload = ( { name, id, onUpdateLibrary ,lat, lng } ) => {
-
     
     const onFileChange =  (event) => {
         event.preventDefault()
@@ -20,27 +22,32 @@ const Upload = ( { name, id, onUpdateLibrary ,lat, lng } ) => {
             // uploadSnapshot.ref.getDownloadURL expression gets resolved into a promise. we have to use await to unwrap the promise 
             const downloadURL = await uploadSnapshot.ref.getDownloadURL()
             //const date = uploadSnapshot.FullMetadata.timeCreated()
+<<<<<<< HEAD
            
            
+=======
+            // const date = await uploadSnapshot.ref.lastModifiedDate
+        
+>>>>>>> 571a94c9ea29c1c0e981df54fe8a25ef7a54eec6
             // .set is updating the Firestore DB with new photo_URL field 
             librariesCollection.doc(id).update({
-              
+            
                 photo_URL : downloadURL,
-                //dateUploaded : date
-
+                dateUploaded : image.lastModifiedDate
             })
             
             
+<<<<<<< HEAD
            
+=======
+>>>>>>> 571a94c9ea29c1c0e981df54fe8a25ef7a54eec6
             
             console.log('Uploaded image', image.name)
         })
     
     }
-
     
     
-
     return(
         <>
             <form>
@@ -59,9 +66,22 @@ const Upload = ( { name, id, onUpdateLibrary ,lat, lng } ) => {
                 </button>
             </form>
         </>
-
 )
-
-
 }
 export default Upload;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
