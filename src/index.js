@@ -4,8 +4,11 @@ import Routes from './routes';
 import firebase from './utils/firebase';
 import App from './App';
 
+
 ReactDOM.render(
-  <React.StrictMode>
+
+ <React.StrictMode>
+    
     <Routes/>
     <App/>
   </React.StrictMode>,

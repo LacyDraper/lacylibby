@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from 'react';
 import {
     GoogleMap,
     useLoadScript,
@@ -6,15 +6,18 @@ import {
     InfoWindow,
     MarkerClusterer,
 } from "@react-google-maps/api";
-// import { formatRelative } from "date-fns";
+
 
 // import "@reach/combobox/styles.css";
 // import { APPCENTER } from "ci-info";
 import mapStyles from "./mapStyles";
 import { formatRelative } from "date-fns";
+import { data } from "browserslist";
+import { librariesCollection, db } from './utils/firebase.js';
+import { firebaseLooper } from "./utils/helpers";
+import Upload from "./components/upload";
 
-//prop. The map takes up the space of the continer it's in. If you don't add width & height, it won't
-//appear. If you set it to 100, it fills the whole screen
+
 const mapContainerStyle = {
     width: '90vw',
     height: '90vh',
@@ -27,84 +30,120 @@ const center = {
 
 const options = {
     styles: mapStyles,
-    disableDefaultUI: true, //gets rid of all teh controls on the map, then add back in 
+    disableDefaultUI: true,  
     zoomControl: true,
 }
-const position = {
-    lat: 47.606209,
-    lng: -122.332069
-}
+
 const onLoad = marker => {
     console.log('marker: ', marker)
 }
 
-export default function App() {
+
+const App = () => {
+    
+    // state to hold all library objects
+    const [libraryData, setLibraryData]  = useState([]);
+
+    useEffect(() => {
+        
+        librariesCollection.get().then(snapshot => {
+            const libraries = firebaseLooper(snapshot);
+            console.log(libraries);
+            setLibraryData(libraries)
+        }).catch (e => {
+            console.log(e)
+        })
+    },[]);
+    
+    // function to update state
+    const onUpdateLibrary = (libraryToUpdate) => {
+        const libraries = libraryData.map((library) => {
+            if (library.id === libraryToUpdate.id) {
+                return libraryToUpdate;
+            }
+            return library;
+        });
+        
+       setLibraryData(libraries);
+    }
+    
+    
     const {isLoaded, loadError} = useLoadScript({
         googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
-        //leaving out places library becuase not using the library 
-
+        
     });
 
     
-    // const [ id, setId ] = React.useState(0);
-    // const [ drawMarker, setDrawMarker ] = React.useState(false);
-    const [markers, setMarkers] = React.useState([]);
+    
+
+    
     const [selected, setSelected] = React.useState(null);
-
-    // const onMapClick = React.useCallback((event) => {
-    //   setMarkers(current => [ //when user clicks, call the setMarkers function. Is that built in??
-    //     ...current, 
-    //     {  
-    //     lat: event.latLng.lat(),
-    //     lng: event.latLng.lng(),
-    //     time: new Date(),
-    //   },
-    // ]); 
-    // }, []);
-
 
     if (loadError) return "Error loading maps";
     if (!isLoaded) return "Loading Maps";
     //props: container, see notes above where the variable is
     //position the map
     return <div>
+        
         <GoogleMap 
         mapContainerStyle={mapContainerStyle} 
         zoom = {15} 
         center = {center}
         options = { options }
-       // this adds an icon everytime it's clicked. Need to change it to when the icon is clicked
-      // onClick = { onMapClick }
+        id= "marker-example"
+        
         >
-        {/* marker component comes with the google maps package */}
-        {/* used time as key, but could use library charter number  */}
-        {markers.map((marker => 
+        {libraryData.map((marker => (
         <Marker 
+             
+            key={marker.id}     
             onLoad={onLoad}
-          // key={marker.time.toISOString()} 
-          // position = {{lat: 47.599192, lng: 47.599192}}
-            position= { position } 
+            position = {{lat: marker.lat, lng: marker.lng}}
+            onUpdateLibrary={onUpdateLibrary}
+            // position = { position }
             icon= {{
             url: '/3redbooks.svg',
             scaledSize: new window.google.maps.Size(30,30),
             origin: new window.google.maps.Point(0,0),
-            anchor: new window.google.maps.Point(15,15) //half of size makes in middle
+            anchor: new window.google.maps.Point(15,15) 
             }}
-          // onClick={() => {
-          //   setSelected(marker);
-          // }}
+            onClick={() => {
+            setSelected(marker);
+            }}
             />
-        ))}
-        {/* //infowindow is component that pops up white window. Can take 1 child*/}
+        )))}
+        
         {selected ? (
-        <InfoWindow position= {{lat: selected.lat, lng: selected.lng}} onCloseClick = {() => {
-        setSelected(null); //have to reset to null once x is clicked on window so that they can pop up agian when clicked
-        }}>
+            
+        <InfoWindow 
+            photo_URL= {selected.photo_URL}
+            position= {{lat: selected.lat, lng: selected.lng}} 
+            onCloseClick = {() => {
+
+        setSelected(null)}} //have to reset to null once x is clicked on window so that they can pop up agian when clicked
+        >
         <div>
-            <h2> image goes here </h2>
-            <p>Library inventory last updated {formatRelative(selected.time, new Date())}</p>
+            <h2> {selected.name} Inventory</h2>
+            <img src={selected.photo_URL} alt='Photo Inventory'/>
+            <p> Date uploaded: { selected.dateUploaded.toDate().toDateString()}, { selected.dateUploaded.toDate().toLocaleTimeString('en-US') }</p>
+            <p>
+                Name of Library : {selected.name}
+            </p>   
+            <Upload
+                id = {selected.id}
+                name = {selected.name}
+                photo_URL= {selected.photo_URL}
+                onUpdateLibrary = { onUpdateLibrary }
+                lat={selected.lat}
+                lng={selected.lng}
+            
+            />
         </div>
-        </InfoWindow>) : null} 
+        </InfoWindow>
+        ) : null} 
         </GoogleMap>
-    </div>;
-    }
+        </div>;
+    }    
+
+
+export default App;
