@@ -5,7 +5,7 @@ class LoginForm extends Component {
     
     // if register is false, it means existing user, user to login 
     state = {
-        register: true,
+        register: false,
         user: {
             email:'',
             password:''

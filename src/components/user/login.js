@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import RegisterForm from './registerForm';
+import LoginForm from './loginForm';
 
 class Login extends Component {
     render(){
         return(
             // <>
-                <RegisterForm/>
+                <LoginForm/>
             // </>
         )
     }

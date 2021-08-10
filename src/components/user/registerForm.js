@@ -6,8 +6,10 @@ class RegisterForm extends Component {
     
     // if register is true, it means it will register new user, false means user is already registered and will sign in 
     state = {
-        register: false,
+        register: true,
         user: {
+            firstname: '',
+            lastname: '',
             email:'',
             password:''
         }
@@ -18,6 +20,8 @@ class RegisterForm extends Component {
         e.preventDefault();
         const email = this.state.user.email
         const password =  this.state.user.password
+        const firstname = this.state.user.firstname
+        const lastname = this.state.user.lastname
         
         if(this.state.register){
             firebase
@@ -51,11 +55,13 @@ class RegisterForm extends Component {
     changeHandler = (e) => {
         let name = e.target.name;
         let value = e.target.value;
+        console.log(e,'<------event')
         this.setState( prevState => ({
             user:{
                 ...prevState.user,
                 [name]: value
             }
+            
         }))
 
     }
@@ -90,7 +96,29 @@ class RegisterForm extends Component {
                 // <>
                 <div>
                 <form onSubmit={ (event)=> this.handleForm(event) }>
+                
+                    <div className="form-group">
+                        <label>First Name</label>
+                        <input
+                            type="firstname"
+                            className="form-control"
+                            name="email"
+                            onChange={ (event) => this.changeHandler(event)}
+                        >
+                        </input>
+                    </div>
 
+                    <div className="form-group">
+                        <label>Last Name</label>
+                        <input
+                            type="lastname"
+                            className="form-control"
+                            name="email"
+                            onChange={ (event) => this.changeHandler(event)}
+                        >
+                        </input>
+                    </div>
+                    
                     <div className="form-group">
                         <label>Email</label>
                         <input
