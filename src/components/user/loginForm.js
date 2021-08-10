@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import firebase,{ usersCollection} from '../../utils/firebase'
 
-
 class LoginForm extends Component {
     
-    // if register is true, it means it will register new user, false means user is already registered and will sign in 
+    // if register is false, it means existing user, user to login 
     state = {
         register: true,
         user: {
@@ -114,7 +113,7 @@ class LoginForm extends Component {
                     </div>
 
                     <button type="submit" className="btn btn-primary">
-                        { this.state.register ? 'Register' : 'Sign in'}
+                        { this.state.register ? 'Register New User' : 'Sign in'}
                     </button>
                     
                 </form>
