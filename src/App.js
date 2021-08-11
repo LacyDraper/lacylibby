@@ -25,8 +25,8 @@ const mapContainerStyle = {
 }
 
 const center = {
-    lat: 47.599940,
-    lng: -122.327750,
+    lat: 47.622680,
+    lng: -122.312860,
 }
 
 const options = {
@@ -144,7 +144,7 @@ const App = () => {
             {/* <img src={selected.photo_URL} alt='Photo Inventory'/> */}
             <p> Date Image Taken: { selected.dateUploaded.toDate().toDateString()}, { selected.dateUploaded.toDate().toLocaleTimeString('en-US') }</p>
             <p>
-                Name of Library : {selected.name}
+                {selected.address}
             </p>   
             <Upload
                 id = {selected.id}
