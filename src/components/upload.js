@@ -1,31 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import { storage, storageRef , librariesCollection} from '../utils/firebase';
-import Resizer from "react-image-file-resizer";
+// import Resizer from "react-image-file-resizer";
 
 
-const resizeFile = (file) =>
-  new Promise((resolve) => {
-    Resizer.imageFileResizer(
-      file,
-      1000,
-      1000,
-      "JPEG",
-      100,
-      0,
-      (uri) => {
-        resolve(uri);
-      },
-      "base64"
-    );
-  });
+// const resizeFile = (file) =>
+//   new Promise((resolve) => {
+//     Resizer.imageFileResizer(
+//       file,
+//       1000,
+//       1000,
+//       "JPEG",
+//       100,
+//       0,
+//       (uri) => {
+//         resolve(uri);
+//       },
+//       "base64"
+//     );
+//   });
 
 const Upload = ( { name, id, onUpdateLibrary ,lat, lng } ) => {
     
-    const onFileChange =  async (event) => {
+    const onFileChange =  (event) => {
         event.preventDefault()
         
-        const originalImage = event.target.files[0]
-        const image = await resizeFile(originalImage)
+        const image = event.target.files[0]
+        // const image = await resizeFile(originalImage)
         
         storageRef.child(`/images/library/${image.name}`)
         
