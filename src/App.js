@@ -16,6 +16,7 @@ import { data } from "browserslist";
 import { librariesCollection, db } from './utils/firebase.js';
 import { firebaseLooper } from "./utils/helpers";
 import Upload from "./components/upload";
+import ReactImageMagnify from 'react-image-magnify';
 
 
 const mapContainerStyle = {
@@ -37,7 +38,7 @@ const options = {
 const onLoad = marker => {
     console.log('marker: ', marker)
 }
-
+        
 
 const App = () => {
     
@@ -116,16 +117,32 @@ const App = () => {
         {selected ? (
             
         <InfoWindow 
-            photo_URL= {selected.photo_URL}
+            // photo_URL= {selected.photo_URL}
             position= {{lat: selected.lat, lng: selected.lng}} 
             onCloseClick = {() => {
 
         setSelected(null)}} //have to reset to null once x is clicked on window so that they can pop up agian when clicked
         >
+
+
         <div>
+        <ReactImageMagnify {...{
+                smallImage: {
+                    alt: 'Library inventory image',
+                    width: 200,
+                    height: 200,
+                    src: selected.photo_URL
+                },
+                largeImage: {
+                    src: selected.photo_URL,
+                    width: 1200,
+                    height: 1800
+                }
+            }} />
+            
             <h2> {selected.name} Inventory</h2>
-            <img src={selected.photo_URL} alt='Photo Inventory'/>
-            <p> Date uploaded: { selected.dateUploaded.toDate().toDateString()}, { selected.dateUploaded.toDate().toLocaleTimeString('en-US') }</p>
+            {/* <img src={selected.photo_URL} alt='Photo Inventory'/> */}
+            <p> Date Image Taken: { selected.dateUploaded.toDate().toDateString()}, { selected.dateUploaded.toDate().toLocaleTimeString('en-US') }</p>
             <p>
                 Name of Library : {selected.name}
             </p>   

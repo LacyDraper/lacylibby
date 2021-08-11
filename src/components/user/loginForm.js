@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import firebase,{ usersCollection} from '../../utils/firebase'
 
-
 class LoginForm extends Component {
     
-    // if register is true, it means it will register new user, false means user is already registered and will sign in 
+    // if register is false, it means existing user, user to login 
     state = {
-        register: true,
+        register: false,
         user: {
             email:'',
             password:''
@@ -87,7 +86,8 @@ class LoginForm extends Component {
     
     render(){
             return(
-                <>
+                // <>
+                <div>
                 <form onSubmit={ (event)=> this.handleForm(event) }>
 
                     <div className="form-group">
@@ -113,16 +113,17 @@ class LoginForm extends Component {
                     </div>
 
                     <button type="submit" className="btn btn-primary">
-                        { this.state.register ? 'Register' : 'Sign in'}
+                        { this.state.register ? 'Register New User' : 'Sign in'}
                     </button>
                     
                 </form>
-                <hr/>
+                {/* // <hr/> */}
                 <button onClick={ ()=> this.handleLogout()}>
                     Logout
 
                 </button>
-            </>
+            </div>
+            //</>
 
         )
 
@@ -131,4 +132,3 @@ class LoginForm extends Component {
 }
         
 export default LoginForm;
-   

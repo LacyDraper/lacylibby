@@ -11,7 +11,8 @@ const Upload = ( { name, id, onUpdateLibrary ,lat, lng } ) => {
         event.preventDefault()
         
         const image = event.target.files[0]
-        console.log(image)
+        // const image = await resizeFile(originalImage)
+        
         storageRef.child(`/images/library/${image.name}`)
         
         .put(image)
@@ -38,7 +39,7 @@ const Upload = ( { name, id, onUpdateLibrary ,lat, lng } ) => {
     
     
     return(
-        <>
+        // <>
             <form>
                 <div className='form'>
                     <label> Choose File</label>
@@ -54,7 +55,7 @@ const Upload = ( { name, id, onUpdateLibrary ,lat, lng } ) => {
                     Upload File
                 </button>
             </form>
-        </>
+        // </>
 )
 }
 export default Upload;
