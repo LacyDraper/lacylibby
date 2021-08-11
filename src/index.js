@@ -21,6 +21,6 @@ firebase.auth().onAuthStateChanged( user => {
     console.log(user.email)
     console.log(user.uid)
   } else{
-    console.log('no user logged in')
+    console.log('no user logged in from index.js')
   }
 })

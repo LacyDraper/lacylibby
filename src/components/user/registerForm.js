@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import firebase,{ usersCollection} from '../../utils/firebase'
+import firebase,{ db, usersCollection} from '../../utils/firebase'
 
 
 class RegisterForm extends Component {
@@ -7,53 +7,43 @@ class RegisterForm extends Component {
     // if register is true, it means it will register new user, false means user is already registered and will sign in 
     state = {
         register: true,
-        user: {
-            firstname: '',
-            lastname: '',
-            email:'',
-            password:''
+        loggedIn : false,
+        firstname: '',
+        lastname: '',
+        email: '',
+        password : ''
         }
-    }
+    
     
     // event handler function
     handleForm = (e) => {
         e.preventDefault();
-        const email = this.state.user.email
-        const password =  this.state.user.password
-        const firstname = this.state.user.firstname
-        const lastname = this.state.user.lastname
+        const email = this.state.email
+        const password  = this.state.password
+        const firstname = this.state.firstname
+        const lastname = this.state.lastname
         
-        if(this.state.register){
-            firebase
-            .auth()
-            // id is generated with this email and password. need to now grab user by uid and use the id to generate the user into firestore
-            .createUserWithEmailAndPassword(email,password)
-            .then((user) => {
-                //this.handleRegisterUser(user);
-                console.log(user,'*********')
-                user.user.sendEmailVerification().then(async(createUser)=> {
-                    const newUser = await
-                    usersCollection.doc.set({
-                        firstname : firstname,
-                        lastname : lastname,
-                        email: email
-                    })
-                })
+        
+        firebase
+        .auth()
+        // id is generated with this email and password. need to now grab user by uid and use the id to generate the user into firestore
+        .createUserWithEmailAndPassword(email,password)
+        .then(userInfo => {
+            // prints the users status signIn
+            console.log(userInfo.operationType,'USER INFO FROM AOTH')
+            this.setState({
+                loggedIn : true,
             
             })
-        } else {
-            firebase
-            .auth()
-            .signInWithEmailAndPassword(email, password)
-            .then((response) => {
-               //console.log(response)
+            return db.collection('users').doc(userInfo.user.uid).set({
+                firstname : firstname,
+                lastname : lastname,
+                email : email
             })
-            .catch(error => {
-                console.log(error)
+            
             })
-        }
-        }
-    
+    } 
+
     // updates state to true or false with new user register or sign in 
     changeHandler = (e) => {
         let name = e.target.name;
@@ -70,8 +60,12 @@ class RegisterForm extends Component {
 
     // logs a customer out if they are logged in 
     handleLogout = (e) => {
-        firebase.auth().signOut().then(()=> {
-            console.log('User logged out')
+        firebase.auth().signOut().then(userInfo => {
+            // prints the users status signIn
+            this.setState(this.state.loggedIn)
+            console.log(this.state.loggedIn, '<-------logged in state')
+            
+            console.log('User logged out registerForm comoponent')
         })
     }
  
@@ -80,13 +74,12 @@ class RegisterForm extends Component {
     handleGetUserInfo = () => {
         let getUser = firebase.auth().currentUser;
         if (getUser){
-            console.log(getUser)
+            this.state.logged
         } else {
             console.log('No User')
         }
     }
 
-    
     render() {
             return(
                 // <>
@@ -97,6 +90,7 @@ class RegisterForm extends Component {
                         <label>First Name</label>
                         <input
                             type="firstname"
+                            
                             className="form-control"
                             name="email"
                             onChange={ (event) => this.changeHandler(event)}
@@ -108,6 +102,7 @@ class RegisterForm extends Component {
                         <label>Last Name</label>
                         <input
                             type="lastname"
+                            value={this.state.lastname}
                             className="form-control"
                             name="email"
                             onChange={ (event) => this.changeHandler(event)}
@@ -119,6 +114,7 @@ class RegisterForm extends Component {
                         <label>Email</label>
                         <input
                             type="email"
+                            value={this.state.email}
                             className="form-control"
                             name="email"
                             onChange={ (event) => this.changeHandler(event)}
@@ -130,6 +126,7 @@ class RegisterForm extends Component {
                         <label>Password</label>
                         <input
                             type="password"
+                            value={this.state.password}
                             className="form-control"
                             name="password"
                             onChange={ (event) => this.changeHandler(event)}

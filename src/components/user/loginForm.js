@@ -5,10 +5,11 @@ class LoginForm extends Component {
     
     // if register is false, it means existing user, user to login 
     state = {
-        register: false,
+        register : false,
+        loggedIn : false,
         user: {
             email:'',
-            password:''
+            password: ''
         }
     }
     
@@ -18,33 +19,17 @@ class LoginForm extends Component {
         const email = this.state.user.email
         const password =  this.state.user.password
         
-        if(this.state.register){
-            firebase
-            .auth()
-            .createUserWithEmailAndPassword(email,password)
-            .then( user => {
-                this.handleRegisterUser(user);
-                user.user.sendEmailVerification().then(()=> {
-                    console.log('email verification sent')
-                })
-            })
-            .catch(error => {
-                console.log(error)
-            })
-        } else {
-            firebase
-            .auth()
-            .signInWithEmailAndPassword(email, password)
-            .then( response => {
-                console.log(response)
-            })
-            .catch(error => {
-                console.log(error)
-            })
-        }
+        firebase
+        .auth()
+        .signInWithEmailAndPassword(email, password)
+        .then( response => {
+            this.state.loggedIn = true
+        })
+        .catch(error => {
+            console.log(error)
+        })
     }
     
-
 
     // updates state to true or false with new user register or sign in 
     changeHandler = (e) => {
@@ -60,17 +45,18 @@ class LoginForm extends Component {
     }
 
 
-
+    // want "user logged out"  to render to the screen 
     // logs a customer out if they are logged in 
     handleLogout = (e) => {
         firebase.auth().signOut().then(()=> {
-            console.log('User logged out')
+            this.state.loggedIn = false
+            console.log(this.state.loggedIn,'<---- login status User clicked on logout from login component')
+            
         })
     }
     
-    
-    
-    // gets a users info in case you need to use if for something else maybe to add a library to watch list
+ 
+    // gets a users info in case you need to use if for something else maybe to add a library watch list
     handleGetUserInfo = () => {
         let getUser = firebase.auth().currentUser;
         if (getUser){
@@ -80,10 +66,6 @@ class LoginForm extends Component {
         }
     }
 
-    
-    
-    
-    
     render(){
             return(
                 // <>
@@ -117,18 +99,14 @@ class LoginForm extends Component {
                     </button>
                     
                 </form>
-                {/* // <hr/> */}
-                <button onClick={ ()=> this.handleLogout()}>
+                
+                <button onClick={ ()=> this.handleLogout()} >
                     Logout
 
                 </button>
             </div>
-            //</>
-
         )
-
-            }
+ }
 
 }
-        
 export default LoginForm;
