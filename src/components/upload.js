@@ -1,23 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { storage, storageRef , librariesCollection} from '../utils/firebase';
-// import Resizer from "react-image-file-resizer";
 
 
-// const resizeFile = (file) =>
-//   new Promise((resolve) => {
-//     Resizer.imageFileResizer(
-//       file,
-//       1000,
-//       1000,
-//       "JPEG",
-//       100,
-//       0,
-//       (uri) => {
-//         resolve(uri);
-//       },
-//       "base64"
-//     );
-//   });
+
+
 
 const Upload = ( { name, id, onUpdateLibrary ,lat, lng } ) => {
     
@@ -33,7 +19,10 @@ const Upload = ( { name, id, onUpdateLibrary ,lat, lng } ) => {
         .then(async(uploadSnapshot) => {
             // uploadSnapshot.ref.getDownloadURL expression gets resolved into a promise. we have to use await to unwrap the promise 
             const downloadURL = await uploadSnapshot.ref.getDownloadURL()
+            //const date = uploadSnapshot.FullMetadata.timeCreated()
            
+           
+            // .set is updating the Firestore DB with new photo_URL field 
             librariesCollection.doc(id).update({
             
                 photo_URL : downloadURL,
@@ -41,6 +30,7 @@ const Upload = ( { name, id, onUpdateLibrary ,lat, lng } ) => {
             })
             
             
+           
             
             console.log('Uploaded image', image.name)
         })

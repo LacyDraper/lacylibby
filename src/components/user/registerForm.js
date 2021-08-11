@@ -26,47 +26,47 @@ class RegisterForm extends Component {
         if(this.state.register){
             firebase
             .auth()
+            // id is generated with this email and password. need to now grab user by uid and use the id to generate the user into firestore
             .createUserWithEmailAndPassword(email,password)
-            .then( user => {
-                this.handleRegisterUser(user);
-                user.user.sendEmailVerification().then(()=> {
-                    console.log('email verification sent')
+            .then((user) => {
+                //this.handleRegisterUser(user);
+                console.log(user,'*********')
+                user.user.sendEmailVerification().then(async(createUser)=> {
+                    const newUser = await
+                    usersCollection.doc.set({
+                        firstname : firstname,
+                        lastname : lastname,
+                        email: email
+                    })
                 })
-            })
-            .catch(error => {
-                console.log(error)
+            
             })
         } else {
             firebase
             .auth()
             .signInWithEmailAndPassword(email, password)
-            .then( response => {
-                console.log(response)
+            .then((response) => {
+               //console.log(response)
             })
             .catch(error => {
                 console.log(error)
             })
         }
-    }
+        }
     
-
-
     // updates state to true or false with new user register or sign in 
     changeHandler = (e) => {
         let name = e.target.name;
         let value = e.target.value;
-        console.log(e,'<------event')
+        
         this.setState( prevState => ({
             user:{
                 ...prevState.user,
                 [name]: value
             }
-            
         }))
 
     }
-
-
 
     // logs a customer out if they are logged in 
     handleLogout = (e) => {
@@ -74,8 +74,7 @@ class RegisterForm extends Component {
             console.log('User logged out')
         })
     }
-    
-    
+ 
     
     // gets a users info in case you need to use if for something else maybe to add a library to watch list
     handleGetUserInfo = () => {
@@ -88,10 +87,7 @@ class RegisterForm extends Component {
     }
 
     
-    
-    
-    
-    render(){
+    render() {
             return(
                 // <>
                 <div>
@@ -156,8 +152,6 @@ class RegisterForm extends Component {
 
         )
 
-            }
-
-}
-        
+    }  
+}    
 export default RegisterForm;
