@@ -1,7 +1,44 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import firebase from 'firebase/app';
+
+import 'firebase/firestore';
+import 'firebase/auth';
+
+import 'firebase/storage';
+import { db, usersCollection} from '../utils/firebase'
+
+
+
+// firebase.auth().onAuthStateChanged( (user) => {
+//     if (user) {
+//         const email = user.email
+//         console.log(user.email, `user email from header`)
+//         // console.log(user.uid)
+//     } else{
+//         console.log('no user logged in from header')
+//     }
+//     })
+
+// const user = firebase.auth().currentUser;
+// const isLoggedIn = firebase.auth().onAuthStateChanged(user) ? ' successfully ': ' user is not '
+// console.log(`this is user`, user )
 
 const Header = () => {
+    const [loggedIn, setLoggedIn]  = useState(false);
+
+    useEffect(() => {
+        
+        firebase.auth().onAuthStateChanged( (user) => {
+            if (user) {
+                setLoggedIn(true)
+            }else{
+                setLoggedIn(false)
+            }})
+        }, []);
+    console.log(`************* ${loggedIn} ************`)
+    const isLoggedIn = loggedIn ? ' are ': ' are not '
+
     return (
         <header>
             
@@ -22,7 +59,9 @@ const Header = () => {
                             <Link className="nav-link" to="/register">Register</Link>
                         </li>
                     </ul>
+                    
                 </div>
+                <p> You { isLoggedIn } logged in. </p>
             </nav>
         </header>
     );
