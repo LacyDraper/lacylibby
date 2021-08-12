@@ -22,12 +22,13 @@ class LoginForm extends Component {
         firebase
         .auth()
         .signInWithEmailAndPassword(email, password)
-        .then( response => {
-            this.state.loggedIn = true
-        })
-        .catch(error => {
-            console.log(error)
-        })
+        .then(user => {
+            this.setState({
+                loggedIn : true
+            })
+            console.log(this.state.loggedIn, `<---- ${this.state.user.email} logged in status`)
+            }
+            )
     }
     
 
@@ -45,27 +46,19 @@ class LoginForm extends Component {
     }
 
 
-    // want "user logged out"  to render to the screen 
-    // logs a customer out if they are logged in 
+    // logs customer out and changes loggedIn state 
     handleLogout = (e) => {
-        firebase.auth().signOut().then(()=> {
-            this.state.loggedIn = false
-            console.log(this.state.loggedIn,'<---- login status User clicked on logout from login component')
+        firebase.auth().signOut().then(user => {
+            this.setState({
+                loggedIn: false
+            })
+            console.log(this.state.loggedIn,`<---- ${this.state.user.email} logged in status`)
             
         })
     }
     
  
-    // gets a users info in case you need to use if for something else maybe to add a library watch list
-    handleGetUserInfo = () => {
-        let getUser = firebase.auth().currentUser;
-        if (getUser){
-            console.log(getUser)
-        } else {
-            console.log('No User')
-        }
-    }
-
+ 
     render(){
             return(
                 // <>
@@ -100,7 +93,7 @@ class LoginForm extends Component {
                     
                 </form>
                 
-                <button onClick={ ()=> this.handleLogout()} >
+                <button onClick={this.handleLogout} >
                     Logout
 
                 </button>

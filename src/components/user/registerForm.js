@@ -4,68 +4,66 @@ import firebase,{ db, usersCollection} from '../../utils/firebase'
 
 class RegisterForm extends Component {
     
-    // if register is true, it means it will register new user, false means user is already registered and will sign in 
-    state = {
+    // if register is true, it means it will register new user
+    state = {        
         register: true,
         loggedIn : false,
-        firstname: '',
-        lastname: '',
-        email: '',
-        password : ''
+        user : { 
+            email: '',
+            password : ''
         }
-    
+    }
     
     // event handler function
     handleForm = (e) => {
         e.preventDefault();
-        const email = this.state.email
-        const password  = this.state.password
-        const firstname = this.state.firstname
-        const lastname = this.state.lastname
-        
-        
+        const email = this.state.user.email
+        const password  = this.state.user.password
+       
         firebase
         .auth()
         // id is generated with this email and password. need to now grab user by uid and use the id to generate the user into firestore
         .createUserWithEmailAndPassword(email,password)
-        .then(userInfo => {
-            // prints the users status signIn
-            console.log(userInfo.operationType,'USER INFO FROM AOTH')
+        .then(user => {
+            this.handleRegisterUser(user);
+            
             this.setState({
                 loggedIn : true,
-            
-            })
-            return db.collection('users').doc(userInfo.user.uid).set({
-                firstname : firstname,
-                lastname : lastname,
-                email : email
-            })
-            
-            })
+                })
+            console.log(this.state.loggedIn,`<---- ${this.state.user.email} logged in status`)
+        })
     } 
 
     // updates state to true or false with new user register or sign in 
     changeHandler = (e) => {
         let name = e.target.name;
         let value = e.target.value;
-        
         this.setState( prevState => ({
             user:{
                 ...prevState.user,
                 [name]: value
             }
         }))
-
     }
 
-    // logs a customer out if they are logged in 
+    handleRegisterUser = (data) => {
+        usersCollection.doc(data.user.uid).set({
+            email: data.user.email
+        }).then (data => {
+            console.log(data)
+        }).catch(e => { console.log(e)})
+    }    
+    
+    
+    
+    
+    // logs customer out and changes loggedIn state 
     handleLogout = (e) => {
-        firebase.auth().signOut().then(userInfo => {
-            // prints the users status signIn
-            this.setState(this.state.loggedIn)
-            console.log(this.state.loggedIn, '<-------logged in state')
-            
-            console.log('User logged out registerForm comoponent')
+        firebase.auth().signOut().then(user => {
+            this.setState({
+                loggedIn: false
+            })
+            console.log(this.state.loggedIN,`<---- ${this.state.user.email} logged in status`)
         })
     }
  
@@ -140,7 +138,7 @@ class RegisterForm extends Component {
                     
                 </form>
                 {/* // <hr/> */}
-                <button onClick={ ()=> this.handleLogout()}>
+                <button onClick={this.handleLogout}>
                     Logout
 
                 </button>
