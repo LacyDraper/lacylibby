@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import firebase,{ db, usersCollection} from '../../utils/firebase'
-
-
+import { Button } from 'react-bootstrap'
+//imports all the styling we need for css to get started
+import 'bootstrap/dist/css/bootstrap.min.css'
 class RegisterForm extends Component {
     
     // if register is true, it means it will register new user
@@ -68,15 +69,7 @@ class RegisterForm extends Component {
     }
  
     
-    // gets a users info in case you need to use if for something else maybe to add a library to watch list
-    handleGetUserInfo = () => {
-        let getUser = firebase.auth().currentUser;
-        if (getUser){
-            this.state.logged
-        } else {
-            console.log('No User')
-        }
-    }
+ 
 
     render() {
         const isLoggedIn = this.state.loggedIn ? ' successfully ': ' user is not '
@@ -133,16 +126,19 @@ class RegisterForm extends Component {
                         </input>
                     </div>
 
-                    <button type="submit" className="btn btn-primary">
-                        { this.state.register ? 'Register' : 'Sign in'}
-                    </button>
-
+                    <div class="alert alert-info" role="alert">
+                        <Button type="submit" className="btn btn-primary">
+                            { this.state.register ? 'Register' : 'Sign in'}
+                        </Button>
+                    </div>
                 </form>
+                
+                <div class="alert alert-info" role="alert">
+                        <Button onClick={this.handleLogout}>
+                            Logout
+                        </Button>
+                </div>
                 <p>{this.state.user.email}{ isLoggedIn } registered!</p>
-                <button onClick={this.handleLogout}>
-                    Logout
-
-                </button>
             </div>
             //</>
 

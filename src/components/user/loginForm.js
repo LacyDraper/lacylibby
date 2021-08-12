@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import firebase,{ usersCollection} from '../../utils/firebase'
+import { Button, Alert, Breadcrumbs, Form } from 'react-bootstrap'
+//imports all the styling we need for css to get started
+import 'bootstrap/dist/css/bootstrap.min.css'
+
 
 class LoginForm extends Component {
     
@@ -62,8 +66,10 @@ class LoginForm extends Component {
     render(){
         const isLoggedIn = this.state.loggedIn ? ' is': ' user is not '
             return(
-                // <>
+                
+             
                 <div>
+                
                 <form onSubmit={ (event)=> this.handleForm(event) }>
 
                     <div className="form-group">
@@ -88,15 +94,20 @@ class LoginForm extends Component {
                         </input>
                     </div>
                     <p>{this.state.user.email}{ isLoggedIn } logged in!</p>
-                    <button type="submit" className="btn btn-primary">
+                    
+                <div class="alert alert-info" role="alert">    
+                    <Button type="submit" className="btn btn-primary">
                         { this.state.register ? 'Register New User' : 'Sign in'}
-                    </button>
+                    </Button>
+                </div>
                 </form>
                 
-                <button onClick={this.handleLogout} >
-                    Logout
-
-                </button>
+                <div class="alert alert-info" role="alert">
+                    <Button onClick={this.handleLogout} >
+                        Logout
+                    </Button> 
+                </div>
+               
             </div>
         )
  }

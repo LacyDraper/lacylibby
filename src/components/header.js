@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import firebase from 'firebase/app';
-
 import 'firebase/firestore';
 import 'firebase/auth';
-
 import 'firebase/storage';
-import { db, usersCollection} from '../utils/firebase'
+import { Button, Alert, Breadcrumb, Card} from 'react-bootstrap'
 
 
 
@@ -44,24 +42,35 @@ const Header = () => {
             
             <nav className="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
                 <Link className="navbar-brand" to="/">Little Free Libraries Inventory</Link>
-                <div className="collapse navbar-collapse" id="navbarCollapse">
+                    <div className="collapse navbar-collapse" id="navbarCollapse">
                     <ul className="navbar-nav mr-auto">
-                        <li className="nav-item active">
-                            <Link className="nav-link" to="/">Home</Link>
-                        </li>
+                       
                         <li className="nav-item active">
                             <Link className="nav-link" to="/libraries">Libraries</Link>
                         </li>
+                    
                         <li className="nav-item active">
                             <Link className="nav-link" to="/login">Login</Link>
                         </li>
-                        <li className="nav-item active">
+                    
+                            <li className="nav-item active">
                             <Link className="nav-link" to="/register">Register</Link>
                         </li>
-                    </ul>
                     
+                    </ul>
+                    </div>
+                <div>
+                <Card style={{ color: '#000'}}>
+                <Card.Body>
+                    <Card.Title>
+                        Your Login Status:
+                    </Card.Title>
+                    <Card.Text>
+                        You { isLoggedIn } logged in
+                    </Card.Text>
+                </Card.Body>
+                </Card>
                 </div>
-                <p> You { isLoggedIn } logged in. </p>
             </nav>
         </header>
     );

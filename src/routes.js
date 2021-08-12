@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 // components 
-import Home from './components/index';
+//import Home from './components/index';
 import Header from './components/header';
 import Footer from './components/footer';
 import Login from './components/user/login';
@@ -15,7 +15,7 @@ const Routes = () => (
         <Header/>
         <main role="main" className="container">
             <Switch>
-                <Route exact path="/" component={Home}/>
+                
                 <Route exact path="/login" component={Login}/>
                 <Route exact path="/register" component={Register}/>
                 
