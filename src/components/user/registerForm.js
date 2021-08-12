@@ -79,6 +79,7 @@ class RegisterForm extends Component {
     }
 
     render() {
+        const isLoggedIn = this.state.loggedIn ? ' successfully ': ' user is not '
             return(
                 // <>
                 <div>
@@ -135,9 +136,9 @@ class RegisterForm extends Component {
                     <button type="submit" className="btn btn-primary">
                         { this.state.register ? 'Register' : 'Sign in'}
                     </button>
-                    
+
                 </form>
-                {/* // <hr/> */}
+                <p>{this.state.user.email}{ isLoggedIn } registered!</p>
                 <button onClick={this.handleLogout}>
                     Logout
 

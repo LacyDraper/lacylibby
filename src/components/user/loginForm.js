@@ -60,7 +60,7 @@ class LoginForm extends Component {
  
  
     render(){
-        const isLoggedIn = this.state.loggedIn ? '': ' not '
+        const isLoggedIn = this.state.loggedIn ? ' is': ' user is not '
             return(
                 // <>
                 <div>
@@ -87,7 +87,7 @@ class LoginForm extends Component {
                         >
                         </input>
                     </div>
-                    <p>You are currently{ isLoggedIn } logged in!</p>
+                    <p>{this.state.user.email}{ isLoggedIn } logged in!</p>
                     <button type="submit" className="btn btn-primary">
                         { this.state.register ? 'Register New User' : 'Sign in'}
                     </button>
