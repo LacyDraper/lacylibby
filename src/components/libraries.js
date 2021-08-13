@@ -11,12 +11,12 @@ import {
 
 // import "@reach/combobox/styles.css";
 // import { APPCENTER } from "ci-info";
-import mapStyles from "./mapStyles";
+import mapStyles from "../mapStyles";
 import { formatRelative } from "date-fns";
 import { data } from "browserslist";
-import { librariesCollection, db } from './utils/firebase.js';
-import { firebaseLooper } from "./utils/helpers";
-import Upload from "./components/upload";
+import { librariesCollection, db } from '../utils/firebase.js';
+import { firebaseLooper } from "../utils/helpers";
+import Upload from "./upload";
 import ReactImageMagnify from 'react-image-magnify';
 import { Form } from 'react-bootstrap'
 
@@ -41,7 +41,7 @@ const onLoad = marker => {
 }
         
 
-const App = () => {
+const Libraries = () => {
     
     // state to hold all library objects
     const [libraryData, setLibraryData]  = useState([]);
@@ -164,4 +164,4 @@ const App = () => {
     }    
 
 
-export default App;
+export default Libraries;

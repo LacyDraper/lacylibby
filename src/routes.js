@@ -7,6 +7,8 @@ import Header from './components/header';
 import Footer from './components/footer';
 import Login from './components/user/login';
 import Register from './components/user/register';
+import Libraries from './components/libraries.js';
+import Home from './components/home.js';
 
 
 const Routes = () => (
@@ -15,10 +17,10 @@ const Routes = () => (
         <Header/>
         <main role="main" className="container">
             <Switch>
-                
+                <Route exact path= "/" component={Home}/>
                 <Route exact path="/login" component={Login}/>
                 <Route exact path="/register" component={Register}/>
-                
+                <Route exact path= "/libraries" component={ Libraries }/>
             </Switch>
         </main>
     </BrowserRouter>
