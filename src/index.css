@@ -12,7 +12,13 @@ body {
 .info-window {
   font-family: 'Special Elite', cursive;
   width: 600px;
+  height: 500px;
+}
 
+.map {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* code {

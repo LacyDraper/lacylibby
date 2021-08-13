@@ -22,13 +22,13 @@ import { Form } from 'react-bootstrap'
 import '../index.css';
 
 const mapContainerStyle = {
-    width: '100vw',
-    height: '100vh',
+    width: '95vw',
+    height: '80vh',
 }
 
 const center = {
-    lat: 47.622680,
-    lng: -122.312860,
+    lat: 47.623960,
+    lng: -122.306930,
 }
 
 const options = {
@@ -83,7 +83,7 @@ const Libraries = () => {
     if (!isLoaded) return "Loading Maps";
     //props: container, see notes above where the variable is
     //position the map
-    return <div>
+    return <div className= "map">
         
         <GoogleMap 
         mapContainerStyle={mapContainerStyle} 

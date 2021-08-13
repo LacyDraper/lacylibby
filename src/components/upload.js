@@ -42,18 +42,23 @@ const Upload = ( { name, id, onUpdateLibrary ,lat, lng } ) => {
         // <>
             <form>
                 <div className='form'>
-                    <label> Choose File</label>
+                    {/* <label> Choose File</label> */}
+                    <div>
                     <input
                         type='file'
                         onChange={onFileChange}
                     />
+                    </div>
                 </div>
+                
+                <div>
                 <button
                 type='submit'
                 className='btn btn-primary'
                 >
                     Upload File
                 </button>
+                </div>
             </form>
         // </>
 )
