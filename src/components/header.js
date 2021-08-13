@@ -34,7 +34,7 @@ const Header = () => {
                 setLoggedIn(false)
             }})
         }, []);
-    console.log(`************* ${loggedIn} ************`)
+ 
     const isLoggedIn = loggedIn ? ' are ': ' are not '
 
     return (

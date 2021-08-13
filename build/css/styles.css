@@ -17,7 +17,7 @@ a {
 ========================================*/
 
 .site-header {
-    background-color: rgba(0, 0, 0, .85);
+    background-color: rgba(243, 245, 148, 0.502);
     -webkit-backdrop-filter: saturate(180%) blur(20px);
     backdrop-filter: saturate(180%) blur(20px);
 }

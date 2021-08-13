@@ -93,17 +93,17 @@ class LoginForm extends Component {
                         >
                         </input>
                     </div>
-                    <p>{this.state.user.email}{ isLoggedIn } logged in!</p>
+                    
                     
                 <div class="alert alert-info" role="alert">    
-                    <Button type="submit" className="btn btn-primary">
+                    <Button type="submit" className="btn btn-info">
                         { this.state.register ? 'Register New User' : 'Sign in'}
                     </Button>
                 </div>
                 </form>
                 
                 <div class="alert alert-info" role="alert">
-                    <Button onClick={this.handleLogout} >
+                    <Button onClick={this.handleLogout} className="btn btn-warning" >
                         Logout
                     </Button> 
                 </div>
