@@ -21,8 +21,8 @@ import ReactImageMagnify from 'react-image-magnify';
 import { Form } from 'react-bootstrap'
 
 const mapContainerStyle = {
-    width: '90vw',
-    height: '90vh',
+    width: '100vw',
+    height: '100vh',
 }
 
 const center = {
@@ -104,8 +104,8 @@ const App = () => {
             onUpdateLibrary={onUpdateLibrary}
             // position = { position }
             icon= {{
-            url: '/3redbooks.svg',
-            scaledSize: new window.google.maps.Size(30,30),
+            url: '/bookshelf-svgrepo-com.svg',
+            scaledSize: new window.google.maps.Size(35,35),
             origin: new window.google.maps.Point(0,0),
             anchor: new window.google.maps.Point(15,15) 
             }}
