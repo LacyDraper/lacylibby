@@ -87,7 +87,7 @@ const Libraries = () => {
         
         <GoogleMap 
         mapContainerStyle={mapContainerStyle} 
-        zoom = {15} 
+        zoom = {14.5} 
         center = {center}
         options = { options }
         id= "marker-example"
