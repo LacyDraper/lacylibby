@@ -9,6 +9,7 @@ import Login from './components/user/login';
 import Register from './components/user/register';
 import Libraries from './components/libraries.js';
 import Home from './components/home.js';
+import './index';
 
 
 const Routes = () => (

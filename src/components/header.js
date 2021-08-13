@@ -5,6 +5,8 @@ import 'firebase/firestore';
 import 'firebase/auth';
 import 'firebase/storage';
 import { Button, Alert, Breadcrumb, Card} from 'react-bootstrap'
+import 'bootstrap/dist/css/bootstrap.min.css' 
+import '../index.css';
 
 
 
@@ -40,8 +42,9 @@ const Header = () => {
     return (
         <header>
             
-            <nav className="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+            <nav className="navbar navbar-expand-md navbar-light  fixed-top " style={{ color: '#fffff'}}>
                 <Link className="navbar-brand" to="/">Little Free Libraries Inventory</Link>
+                {/* //what is collapse navbar?  */}
                     <div className="collapse navbar-collapse" id="navbarCollapse">
                     <ul className="navbar-nav mr-auto">
                        
@@ -60,13 +63,13 @@ const Header = () => {
                     </ul>
                     </div>
                 <div>
-                <Card style={{ color: '#000'}}>
+                <Card style={{ color: '#000', height: '3rem'}}>
                 <Card.Body>
-                    <Card.Title>
-                        Your Login Status:
-                    </Card.Title>
+                    {/* <Card.Title> */}
+                        
+                    {/* </Card.Title> */}
                     <Card.Text>
-                        You { isLoggedIn } logged in
+                        Your Login Status : You { isLoggedIn } logged in
                     </Card.Text>
                 </Card.Body>
                 </Card>

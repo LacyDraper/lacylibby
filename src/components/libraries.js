@@ -19,6 +19,7 @@ import { firebaseLooper } from "../utils/helpers";
 import Upload from "./upload";
 import ReactImageMagnify from 'react-image-magnify';
 import { Form } from 'react-bootstrap'
+import '../index.css';
 
 const mapContainerStyle = {
     width: '100vw',
@@ -76,9 +77,6 @@ const Libraries = () => {
     });
 
     
-    
-
-    
     const [selected, setSelected] = React.useState(null);
 
     if (loadError) return "Error loading maps";
@@ -116,7 +114,7 @@ const Libraries = () => {
         )))}
         
         {selected ? (
-            
+        
         <InfoWindow 
             // photo_URL= {selected.photo_URL}
             position= {{lat: selected.lat, lng: selected.lng}} 
@@ -126,12 +124,12 @@ const Libraries = () => {
         >
 
 
-        <div>
+        <div className = "info-window">
         <ReactImageMagnify {...{
                 smallImage: {
                     alt: 'Library inventory image',
-                    width: 200,
-                    height: 200,
+                    width: 300,
+                    height: 300,
                     src: selected.photo_URL
                 },
                 largeImage: {

@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Routes from './routes';
 import firebase from './utils/firebase';
+import './index.css';
 
 
 ReactDOM.render(
