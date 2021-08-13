@@ -133,12 +133,12 @@ class RegisterForm extends Component {
                   
                 </form>
                 
-                <div class="alert alert-info" role="alert">
-                        <Button onClick={this.handleLogout} className="btn btn-info btn-lg btn-block">
+               <br></br>
+                        <Button onClick={this.handleLogout} className="btn btn-warning">
                             Logout
                         </Button>
-                </div>
-                <p>{this.state.user.email}{ isLoggedIn } registered!</p>
+                
+                
             </div>
             //</>
 

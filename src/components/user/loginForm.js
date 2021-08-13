@@ -95,18 +95,18 @@ class LoginForm extends Component {
                     </div>
                     
                     
-                <div class="alert alert-info" role="alert">    
+                   
                     <Button type="submit" className="btn btn-info">
                         { this.state.register ? 'Register New User' : 'Sign in'}
                     </Button>
-                </div>
+                
                 </form>
                 
-                <div class="alert alert-info" role="alert">
+                <br></br>
                     <Button onClick={this.handleLogout} className="btn btn-warning" >
                         Logout
                     </Button> 
-                </div>
+                
                
             </div>
         )
