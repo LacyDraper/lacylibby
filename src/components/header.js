@@ -31,6 +31,8 @@ const Header = () => {
         
         firebase.auth().onAuthStateChanged( (user) => {
             if (user) {
+                console.log(user.email,'<-----USERNAME')
+                
                 setLoggedIn(true)
             }else{
                 setLoggedIn(false)
@@ -38,6 +40,8 @@ const Header = () => {
         }, []);
  
     const isLoggedIn = loggedIn ? ' are ': ' are not '
+    
+    
 
     return (
         <header>

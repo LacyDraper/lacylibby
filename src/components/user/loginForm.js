@@ -64,15 +64,12 @@ class LoginForm extends Component {
  
  
     render(){
-        const isLoggedIn = this.state.loggedIn ? ' is': ' user is not '
+        
             return(
                 
-             
-                <div>
-                
+             <div>
                 <form onSubmit={ (event)=> this.handleForm(event) }>
-
-                    <div className="form-group">
+                     <div className="form-group">
                         <label>Email</label>
                         <input
                             type="email"
@@ -94,12 +91,9 @@ class LoginForm extends Component {
                         </input>
                     </div>
                     
-                    
-                   
                     <Button type="submit" className="btn btn-info">
                         { this.state.register ? 'Register New User' : 'Sign in'}
                     </Button>
-                
                 </form>
                 
                 <br></br>

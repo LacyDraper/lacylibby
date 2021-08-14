@@ -5,33 +5,35 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 class RegisterForm extends Component {
     
-    // if register is true, it means it will register new user
+   
     state = {        
         register: true,
         loggedIn : false,
         user : { 
             email: '',
-            password : ''
+            password : '',
+            firstname :'',
+            lastname : ''
         }
     }
     
-    // event handler function
+    // registers user into the auth database using .auth and stores current state into firestore by using handleRegisterUser helper function
     handleForm = (e) => {
         e.preventDefault();
-        const email = this.state.user.email
-        const password  = this.state.user.password
+        const email = this.state.user.email;
+        const password  = this.state.user.password;
        
         firebase
         .auth()
-        // id is generated with this email and password. need to now grab user by uid and use the id to generate the user into firestore
         .createUserWithEmailAndPassword(email,password)
-        .then(user => {
-            this.handleRegisterUser(user);
+        .then(response => {
+            this.handleRegisterUser(response);
             
             this.setState({
                 loggedIn : true,
                 })
             console.log(this.state.loggedIn,`<---- ${this.state.user.email} logged in status`)
+            console.log(this.state,"<---handleForm CAPTURES current state")
         })
     } 
 
@@ -44,21 +46,24 @@ class RegisterForm extends Component {
                 ...prevState.user,
                 [name]: value
             }
-        }))
+        })
+        )
+        
     }
-
-    handleRegisterUser = (data) => {
-        usersCollection.doc(data.user.uid).set({
-            email: data.user.email
-        }).then (data => {
-            console.log(data)
-        }).catch(e => { console.log(e)})
+    
+    // stores current state into the firestore db user collection using .add
+    handleRegisterUser = () => {
+        usersCollection.add({
+            //... this.state adds the current state to the database
+            ...this.state
+            }).then (() => {
+             }).catch(e => { console.log(e)})
     }    
     
     
     
     
-    // logs customer out and changes loggedIn state 
+    // logs customer out and changes loggedIn state value
     handleLogout = (e) => {
         firebase.auth().signOut().then(user => {
             this.setState({
@@ -72,7 +77,7 @@ class RegisterForm extends Component {
  
 
     render() {
-        const isLoggedIn = this.state.loggedIn ? ' successfully ': ' user is not '
+       
             return(
                 
                 <div>
@@ -83,7 +88,7 @@ class RegisterForm extends Component {
                         <input
                             type="firstname"
                             className="form-control"
-                            name="email"
+                            name="firstname"
                             onChange={ (event) => this.changeHandler(event)}
                         >
                         </input>
@@ -92,10 +97,9 @@ class RegisterForm extends Component {
                     <div className="form-group">
                         <label>Last Name</label>
                         <input
-                            type="lastname"
-                            value={this.state.lastname}
+                            type="lastname"  
                             className="form-control"
-                            name="email"
+                            name="lastname"
                             onChange={ (event) => this.changeHandler(event)}
                         >
                         </input>
@@ -105,7 +109,6 @@ class RegisterForm extends Component {
                         <label>Email</label>
                         <input
                             type="email"
-                            value={this.state.email}
                             className="form-control"
                             name="email"
                             onChange={ (event) => this.changeHandler(event)}
