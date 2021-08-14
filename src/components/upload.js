@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { storage, storageRef , librariesCollection} from '../utils/firebase';
-
+import {Button} from 'react-bootstrap'
 
 
 
@@ -39,28 +39,22 @@ const Upload = ( { name, id, onUpdateLibrary ,lat, lng } ) => {
     
     
     return(
-        // <>
+            <div>
             <form>
-                <div className='form'>
-                    {/* <label> Choose File</label> */}
-                    <div>
-                    <input
-                        type='file'
-                        onChange={onFileChange}
-                    />
-                    </div>
-                </div>
-                
-                <div>
-                <button
-                type='submit'
-                className='btn btn-primary'
-                >
-                    Upload File
-                </button>
-                </div>
+                <input
+                    className="btn btn-warning btn-sm"
+                    type='file'
+                    onChange={onFileChange}
+                />
+            <br></br>
             </form>
-        // </>
+            <br></br>
+                <Button className="btn btn-warning btn-sm" 
+                type='submit'>
+                    Upload File
+                </Button>
+            </div>    
+            
 )
 }
 export default Upload;
