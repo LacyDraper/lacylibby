@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import firebase,{ db, usersCollection} from '../../utils/firebase'
+import firebase,{ usersCollection} from '../../utils/firebase'
 import { Button } from 'react-bootstrap'
-//imports all the styling we need for css to get started
 import 'bootstrap/dist/css/bootstrap.min.css'
+
 class RegisterForm extends Component {
     
     // if register is true, it means it will register new user
@@ -74,7 +74,7 @@ class RegisterForm extends Component {
     render() {
         const isLoggedIn = this.state.loggedIn ? ' successfully ': ' user is not '
             return(
-                // <>
+                
                 <div>
                 <form onSubmit={ (event)=> this.handleForm(event) }>
                 
@@ -82,7 +82,6 @@ class RegisterForm extends Component {
                         <label>First Name</label>
                         <input
                             type="firstname"
-                            
                             className="form-control"
                             name="email"
                             onChange={ (event) => this.changeHandler(event)}
@@ -127,20 +126,17 @@ class RegisterForm extends Component {
                     </div>
 
                     
-                        <Button type="submit" className="btn btn-info ">
-                            { this.state.register ? 'Register' : 'Sign in'}
-                        </Button>
+                    <Button type="submit" className="btn btn-info ">
+                        { this.state.register ? 'Register' : 'Sign in'}
+                    </Button>
                   
                 </form>
-                
-               <br></br>
-                        <Button onClick={this.handleLogout} className="btn btn-warning">
-                            Logout
-                        </Button>
-                
-                
-            </div>
-            //</>
+                <br></br>
+                    <Button onClick={this.handleLogout} className="btn btn-warning">
+                        Logout
+                    </Button>
+                </div>
+            
 
         )
 

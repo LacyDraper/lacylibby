@@ -4,10 +4,9 @@ import RegisterForm from './registerForm';
 class Register extends Component {
     render(){
         return(
-            // <>
+            
                 <RegisterForm/>
-            // </>
-        )
+            )
     }
 }
 

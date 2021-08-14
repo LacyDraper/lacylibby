@@ -1,8 +1,6 @@
 import firebase from 'firebase/app';
-
 import 'firebase/firestore';
 import 'firebase/auth';
-
 import 'firebase/storage';
 
 // SDK setup from lacy_libby_capstone firebase project
@@ -17,7 +15,6 @@ const firebaseConfig = {
   };
   
   
-
 firebase.initializeApp(firebaseConfig);
 firebase.auth(); 
 

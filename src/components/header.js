@@ -4,7 +4,7 @@ import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
 import 'firebase/storage';
-import { Button, Alert, Breadcrumb, Card} from 'react-bootstrap'
+import { Card } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css' 
 import '../index.css';
 
