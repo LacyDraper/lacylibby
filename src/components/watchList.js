@@ -13,12 +13,11 @@ const WatchList = ( {id}) => {
         console.log(user, '<-----user from watchlist')
         console.log(id, '<------library id coming from watchlist')
         const library = librariesCollection.doc(id)
-        library.set({
-                    followers : user},
-                    {merge: true});
-        
+        library.update(
+                    { followers : firebase.firestore.FieldValue.arrayUnion(user)},
+                   );
 
-        
+
  }
 
 return(
