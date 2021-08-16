@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import firebase,{ usersCollection} from '../../utils/firebase'
-import { Button, Alert, Breadcrumbs, Form } from 'react-bootstrap'
+import firebase from '../../utils/firebase'
+import { Button } from 'react-bootstrap'
 //imports all the styling we need for css to get started
 import 'bootstrap/dist/css/bootstrap.min.css'
 

@@ -18,7 +18,6 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 export const auth = firebase.auth(); 
 
-//we can use storageRef to access storage in other parts of our app
 export const storage = firebase.storage();
 export const storageRef = storage.ref();
 
