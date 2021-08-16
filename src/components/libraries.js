@@ -3,23 +3,18 @@ import {
     GoogleMap,
     useLoadScript,
     Marker,
-    InfoWindow,
-    MarkerClusterer,
-} from "@react-google-maps/api";
-
-
+    InfoWindow
+   } from "@react-google-maps/api";
 
 // import "@reach/combobox/styles.css";
 // import { APPCENTER } from "ci-info";
 import mapStyles from "../mapStyles";
-import { formatRelative } from "date-fns";
-import { data } from "browserslist";
 import { librariesCollection, db } from '../utils/firebase.js';
 import { firebaseLooper } from "../utils/helpers";
 import Upload from "./upload";
 import ReactImageMagnify from 'react-image-magnify';
-import { Form } from 'react-bootstrap'
 import '../index.css';
+import WatchList from "./watchList";
 
 const mapContainerStyle = {
     width: '95vw',
@@ -154,7 +149,11 @@ const Libraries = () => {
                 lng={selected.lng}
             
             />
+            <br></br>
+            <WatchList
+            id = {selected.id}/>
         </div>
+    
         </InfoWindow>
         ) : null} 
         </GoogleMap>

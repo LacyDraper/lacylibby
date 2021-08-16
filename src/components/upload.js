@@ -42,14 +42,14 @@ const Upload = ( { name, id, onUpdateLibrary ,lat, lng } ) => {
             <div>
             <form>
                 <input
-                    className="btn btn-warning btn-sm"
+                    
                     type='file'
                     onChange={onFileChange}
                 />
             <br></br>
             </form>
             <br></br>
-                <Button className="btn btn-warning btn-sm" 
+            <Button className="btn btn-warning btn-sm" 
                 type='submit'>
                     Upload File
                 </Button>
