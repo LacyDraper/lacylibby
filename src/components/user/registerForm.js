@@ -61,8 +61,7 @@ class RegisterForm extends Component {
     }    
     
     
-    
-    
+
     // logs customer out and changes loggedIn state value
     handleLogout = (e) => {
         firebase.auth().signOut().then(user => {
@@ -77,8 +76,9 @@ class RegisterForm extends Component {
  
 
     render() {
-       
-            return(
+        const registered = this.state.register ? '' : 'is not';
+            
+        return(
                 
                 <div>
                 <form onSubmit={ (event)=> this.handleForm(event) }>
@@ -130,7 +130,7 @@ class RegisterForm extends Component {
 
                     
                     <Button type="submit" className="btn btn-info ">
-                        { this.state.register ? 'Register' : 'Sign in'}
+                        Register
                     </Button>
                   
                 </form>
@@ -138,9 +138,9 @@ class RegisterForm extends Component {
                     <Button onClick={this.handleLogout} className="btn btn-warning">
                         Logout
                     </Button>
+                
+                   
                 </div>
-            
-
         )
 
     }  

@@ -10,18 +10,14 @@ const WatchList = ( {id}) => {
 
 const [watched, setWatched] = useState(false);
 
-const updateWatchlist = () => {
-    setWatched(true);
-    console.log(watched, '<----- state')
-};
+
 
 const handleWatchlistClick = (event) => {
+    event.preventDefault();
     const user = firebase.auth().currentUser.email
-        console.log(id,'<----library id from watchlist')
-        console.log(event.target, '<----watchlist event.target') 
         console.log(user, '<-----user from watchlist')
         console.log(id, '<------library id coming from watchlist')
-        const library = librariesCollection.doc(id)
+    const library = librariesCollection.doc(id)
         library.update(
                     { followers : firebase.firestore.FieldValue.arrayUnion(user)}
                     )
@@ -29,7 +25,7 @@ const handleWatchlistClick = (event) => {
     console.log(watched, '<----- state')
 };
 
-const watch =  watched ? 'are': 'are not'
+const watch =  watched ? 'are': 'are not';
 
 
 
@@ -38,7 +34,7 @@ return(
             <Button className="btn btn-warning btn-sm" 
             type='submit'
             onClick= {handleWatchlistClick}
-            onClick ={updateWatchlist} 
+            
             >
                 Add Library to Watchlist
             </Button>
@@ -46,8 +42,9 @@ return(
             <br></br>  
             </div>
             
-            <div>
-             <p> You {watch} following this library </p>   
+            <div class="alert alert-warning" role="alert">
+                <h6 class="alert-heading">You {watch} following this library</h6>
+                
             </div>
         </div>   
         
