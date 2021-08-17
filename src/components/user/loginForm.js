@@ -36,7 +36,7 @@ class LoginForm extends Component {
     }
     
 
-    // updates state to true or false with new user register or sign in 
+    
     changeHandler = (e) => {
         let name = e.target.name;
         let value = e.target.value;

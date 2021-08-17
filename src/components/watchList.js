@@ -1,15 +1,14 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import { Button } from 'react-bootstrap';
 import 'firebase/auth';
 import firebase, { librariesCollection } from '../utils/firebase.js';
 
 
 
-// library id from libraries component
+// library id from libraries component passed as props
 const WatchList = ( {id}) => {
 
 const [watched, setWatched] = useState(false);
-
 
 
 const handleWatchlistClick = (event) => {
@@ -28,13 +27,11 @@ const handleWatchlistClick = (event) => {
 const watch =  watched ? 'are': 'are not';
 
 
-
 return(
         <div>
             <Button className="btn btn-warning btn-sm" 
             type='submit'
             onClick= {handleWatchlistClick}
-            
             >
                 Add Library to Watchlist
             </Button>
@@ -47,11 +44,6 @@ return(
                 
             </div>
         </div>   
-        
 )
-
-
-
-
 }
 export default WatchList;
