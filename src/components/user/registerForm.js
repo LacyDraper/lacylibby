@@ -17,7 +17,7 @@ class RegisterForm extends Component {
         }
     }
     
-    // registers user into the auth database using .auth and stores current state into firestore by using handleRegisterUser helper function
+    // registers user into the auth database using .auth   handleRegisterUser is called. function defined below
     handleForm = (e) => {
         e.preventDefault();
         const email = this.state.user.email;
@@ -37,7 +37,8 @@ class RegisterForm extends Component {
         })
     } 
 
-    // updates state to true or false with new user register or sign in 
+    
+    // updates state to field value entered by user in the register form
     changeHandler = (e) => {
         let name = e.target.name;
         let value = e.target.value;
@@ -46,18 +47,18 @@ class RegisterForm extends Component {
                 ...prevState.user,
                 [name]: value
             }
-        })
-        )
-        
+        }))
     }
     
-    // stores current state into the firestore db user collection using .add
+    
+    // stores current state into the firestore db user collection using  .add
     handleRegisterUser = () => {
         usersCollection.add({
             //... this.state adds the current state to the database
             ...this.state
-            }).then (() => {
-             }).catch(e => { console.log(e)})
+            })
+            .then (() => {})
+            .catch(e => { console.log(e)})
     }    
     
     
@@ -76,7 +77,7 @@ class RegisterForm extends Component {
  
 
     render() {
-        const registered = this.state.register ? '' : 'is not';
+        
             
         return(
                 

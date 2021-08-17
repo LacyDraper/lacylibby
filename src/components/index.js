@@ -5,7 +5,7 @@ class Home extends Component {
     render(){ 
         return(
             <div>
-               See what treasures are in a little library near you!
+               
             </div>
         )
     }

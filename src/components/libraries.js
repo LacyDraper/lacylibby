@@ -4,12 +4,10 @@ import {
     useLoadScript,
     Marker,
     InfoWindow
-   } from "@react-google-maps/api";
-
-// import "@reach/combobox/styles.css";
-// import { APPCENTER } from "ci-info";
+   } 
+from "@react-google-maps/api";
 import mapStyles from "../mapStyles";
-import { librariesCollection, db } from '../utils/firebase.js';
+import { librariesCollection} from '../utils/firebase.js';
 import { firebaseLooper } from "../utils/helpers";
 import Upload from "./upload";
 import ReactImageMagnify from 'react-image-magnify';
@@ -53,6 +51,7 @@ const Libraries = () => {
         })
     },[]);
     
+    
     // function to update state
     const onUpdateLibrary = (libraryToUpdate) => {
         const libraries = libraryData.map((library) => {
@@ -76,8 +75,7 @@ const Libraries = () => {
 
     if (loadError) return "Error loading maps";
     if (!isLoaded) return "Loading Maps";
-    //props: container, see notes above where the variable is
-    //position the map
+   
     return <div className= "map">
         
         <GoogleMap 

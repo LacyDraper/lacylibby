@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Container, Row, Col } from 'react-bootstrap'
+import { Card, Container} from 'react-bootstrap'
 import './index';
 
 const Home = ( ) => {
