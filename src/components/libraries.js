@@ -146,7 +146,7 @@ const Libraries = () => {
             {console.log(selected.dateUploaded,'<------')}
             <h2> {selected.name} Inventory</h2>
             {/* <img src={selected.photo_URL} alt='Photo Inventory'/> */}
-            <p> Date Image Taken: {formatDate(selected.dateUploaded)}</p>
+            {/* <p> Date Image Taken: {formatDate(selected.dateUploaded)}</p> */}
               <p>  {selected.address}</p> 
              
             <Upload
