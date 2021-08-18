@@ -34,6 +34,13 @@ const onLoad = marker => {
     console.log('marker: ', marker)
 }
         
+const formatDate = (date) => {
+    if(date.milliseconds){
+        return date.milliseconds
+    }else{
+        return date.toString()
+    }
+}
 
 const Libraries = () => {
     
@@ -58,7 +65,7 @@ const Libraries = () => {
         console.log(libraryToUpdate)
         
         const libraries = libraryData.map((library) => {
-            console.log(library.id)
+            console.log(library.id,'<----library to update')
             if (library.id === libraryToUpdate.id) {
                 return libraryToUpdate;
             }
@@ -136,13 +143,12 @@ const Libraries = () => {
                     height: 1800
                 }
             }} />
-            
+            {console.log(selected.dateUploaded,'<------')}
             <h2> {selected.name} Inventory</h2>
             {/* <img src={selected.photo_URL} alt='Photo Inventory'/> */}
-            <p> Date Image Taken: { selected.dateUploaded.toDate().toDateString()}, { selected.dateUploaded.toDate().toLocaleTimeString('en-US') }</p>
-            <p>
-                {selected.address}
-            </p>   
+            <p> Date Image Taken: {formatDate(selected.dateUploaded)}</p>
+              <p>  {selected.address}</p> 
+             
             <Upload
                 id = {selected.id}
                 name = {selected.name}

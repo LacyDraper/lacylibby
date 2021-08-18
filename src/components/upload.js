@@ -4,7 +4,7 @@ import {Button} from 'react-bootstrap'
 
 
 // props passed down from libraries component library.id
-const Upload = ( {name, id, lat, lng, onUpdateLibrary, address, followers, photo_URL} ) => {
+const Upload = ( {name, id, lat, lng, onUpdateLibrary, address, followers, photo_URL } ) => {
     
     const onFileChange =  (event) => {
         event.preventDefault()
@@ -13,6 +13,7 @@ const Upload = ( {name, id, lat, lng, onUpdateLibrary, address, followers, photo
 
         
         const image = event.target.files[0]
+        
         
         
         storageRef.child(`/images/library/${image.name}`)
@@ -26,16 +27,18 @@ const Upload = ( {name, id, lat, lng, onUpdateLibrary, address, followers, photo
                 photo_URL : downloadURL,
                 dateUploaded : image.lastModifiedDate
             })
-            // onUpdateLibrary({
-            //     name : name,
-            //     id : parseInt(id, 10),
-            //     lat : lat,
-            //     lng : lng,
-            //     photo_URL: downloadURL,
-            //     address : address,
-            //     followers : followers,
             
-            // })
+            onUpdateLibrary({
+                name : name,
+                id : parseInt(id, 10),
+                lat : lat,
+                lng : lng,
+                photo_URL: downloadURL,
+                address : address,
+                followers : followers,
+                dateUploaded : image.lastModifiedDate
+            
+            })
     
         })
 
@@ -46,17 +49,14 @@ const Upload = ( {name, id, lat, lng, onUpdateLibrary, address, followers, photo
             <div>
             <form>
                 <input
-                    
-                    type='file'
                     onChange={onFileChange}
+                    type='file'
+                    
                 />
             <br></br>
             </form>
             <br></br>
-            <Button className="btn btn-warning btn-sm" 
-                type='submit'>
-                    Upload File
-                </Button>
+          
             </div>    
             
 )
