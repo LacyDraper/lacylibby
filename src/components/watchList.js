@@ -39,8 +39,8 @@ return(
             <br></br>  
             </div>
             
-            <div class="alert alert-warning" role="alert">
-                <h6 class="alert-heading">You {watch} following this library</h6>
+            <div className="alert alert-warning" role="alert">
+                <h6 className="alert-heading">You {watch} following this library</h6>
                 
             </div>
         </div>   

@@ -54,14 +54,18 @@ const Libraries = () => {
     
     // function to update state
     const onUpdateLibrary = (libraryToUpdate) => {
+        console.log('IN ONUPDATELIBRARY')
+        console.log(libraryToUpdate)
+        
         const libraries = libraryData.map((library) => {
+            console.log(library.id)
             if (library.id === libraryToUpdate.id) {
                 return libraryToUpdate;
             }
             return library;
         });
-        
-       setLibraryData(libraries);
+        setSelected(libraryToUpdate)
+        setLibraryData(libraries);
     }
     
     
@@ -111,6 +115,7 @@ const Libraries = () => {
         <InfoWindow 
             // photo_URL= {selected.photo_URL}
             position= {{lat: selected.lat, lng: selected.lng}} 
+            onUpdateLibrary={onUpdateLibrary}
             onCloseClick = {() => {
 
         setSelected(null)}} //have to reset to null once x is clicked on window so that they can pop up agian when clicked
@@ -145,6 +150,8 @@ const Libraries = () => {
                 onUpdateLibrary = { onUpdateLibrary }
                 lat={selected.lat}
                 lng={selected.lng}
+                address = { selected.address}
+                followers = {selected.followers}
             
             />
             <br></br>

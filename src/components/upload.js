@@ -4,7 +4,7 @@ import {Button} from 'react-bootstrap'
 
 
 // props passed down from libraries component library.id
-const Upload = ( {id} ) => {
+const Upload = ( {name, id, lat, lng, onUpdateLibrary, address, followers, photo_URL} ) => {
     
     const onFileChange =  (event) => {
         event.preventDefault()
@@ -26,9 +26,18 @@ const Upload = ( {id} ) => {
                 photo_URL : downloadURL,
                 dateUploaded : image.lastModifiedDate
             })
-            console.log('Uploaded image', image.name)
+            // onUpdateLibrary({
+            //     name : name,
+            //     id : parseInt(id, 10),
+            //     lat : lat,
+            //     lng : lng,
+            //     photo_URL: downloadURL,
+            //     address : address,
+            //     followers : followers,
+            
+            // })
+    
         })
-
 
     }
     
